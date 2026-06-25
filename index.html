@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبد الله الرفاعي | مهندس برمجيات وصانع محتوى إبداعي</title>
+    
+    <!-- استدعاء خط Cairo وتثقيلاته من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- ربط مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* تطبيق خط Cairo على كامل الموقع */
+        body { 
+            background-color: #0b0b0b; 
+            color: #ffffff; 
+            font-family: 'Cairo', sans-serif; 
+        }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.07); }
+        
+        /* أنيميشن الدوران البطيء للأقواس المضيئة */
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-slow-spin { animation: slow-spin 16s linear infinite; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-white antialiased selection:bg-orange-500 selection:text-white">
+
+    <!-- الهيدر / شريط التنقل -->
+    <nav class="max-w-5xl mx-auto my-6 p-4 glass rounded-full flex justify-between items-center px-8 mx-4 md:mx-auto z-50 relative">
+        <div class="text-orange-500 font-black text-xl tracking-wide">Abdallah Al-Refai</div>
+        <div class="space-x-4 space-x-reverse hidden md:flex text-sm font-medium text-zinc-300">
+            <a href="#home" class="hover:text-orange-500 transition-colors">الرئيسية</a>
+            <a href="#skills" class="hover:text-orange-500 transition-colors">المهارات</a>
+            <a href="#experience" class="hover:text-orange-500 transition-colors">المسيرة المهنية</a>
+            <a href="#projects" class="hover:text-orange-500 transition-colors">المشاريع</a>
+        </div>
+        <!-- أيقونات شبكات التواصل الاجتماعي -->
+        <div class="flex items-center space-x-4 space-x-reverse text-zinc-400 text-lg">
+            <a href="https://linkedin.com/in/abdallah-al-refai" target="_blank" class="hover:text-orange-500 transition-colors"><i class="fab fa-linkedin"></i></a>
+            <a href="https://t.me/Abdallah_Re" target="_blank" class="hover:text-orange-500 transition-colors"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.behance.net/Abdullah-Al_Refai" target="_blank" class="hover:text-orange-500 transition-colors"><i class="fab fa-behance"></i></a>
+        </div>
+    </nav>
+
+    <!-- قسم الواجهة الرئيسية والشخصية -->
+    <section id="home" class="max-w-5xl mx-auto my-12 md:my-16 text-center px-4 relative">
+        <span class="bg-neutral-900 text-xs text-orange-400 font-bold px-4 py-1.5 rounded-full border border-zinc-800 tracking-widest uppercase">
+            <i class="fas fa-sparkles text-orange-500 ml-1"></i> مرحباً بك
+        </span>
+        
+        <h1 class="text-4xl md:text-6xl font-black mt-6 leading-tight">
+            أنا <span class="text-orange-500">عبد الله الرفاعي</span>
+        </h1>
+        <h2 class="text-xl md:text-2xl text-zinc-300 mt-3 font-bold">مهندس برمجيات ومخرج محتوى رقمي</h2>
+        
+        <p class="text-base md:text-lg text-zinc-400 mt-6 max-w-3xl mx-auto font-light leading-relaxed">
+            أجمع بين شغف تطوير برمجيات الويب وتطبيقات الموبايل وأنظمة الذكاء الاصطناعي، وبين الإبداع البصري في التصميم، صناعة الأفلام الوثائقية، الموشن جرافيك.
+        </p>
+
+        <!-- حاوية العرض الرئيسية المعالجة هندسياً بالكامل -->
+        <div class="relative w-80 h-80 md:w-[400px] md:h-[400px] mx-auto mt-12 flex items-center justify-center">
+            
+            <!-- التوهج الخلفي اللطيف (Glow Effect) -->
+            <div class="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-orange-500/10 filter blur-3xl z-0"></div>
+            
+            <!-- الأقواس المضيئة الدوارة مستقلة وخارج أي اقتطاع برمي لتكتمل دائرتها بالخلف -->
+            <div class="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-dashed border-orange-500/20 animate-slow-spin z-10"></div>
+            <div class="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border-t-2 border-r-2 border-transparent border-t-orange-500 border-r-orange-500/50 animate-slow-spin z-10"></div>
+
+            <!-- حاوية الصورة الشخصية المرتفعة لطبقة z-20 والأمامية للتلاشي الحقيقي -->
+            <div class="absolute inset-0 flex items-end justify-center z-20">
+                <div class="relative w-full h-[120%] flex items-end justify-center overflow-hidden">
+                    <!-- الصورة الشخصية -->
+                    <img src="C:\Users\Eng.Abdallah_AlRefai\Desktop\Gemini_Generated_Image_93wdol93wdol93wd copy.png" 
+                         alt="عبد الله الرفاعي" 
+                         class="w-auto h-76 md:h-96 object-cover object-bottom drop-shadow-[0_0_20px_rgba(249,115,22,0.15)] relative z-25">
+                    
+                    <!-- قناع التدرج اللوني الفعلي والمذوب لحواف السترة السفلية داخل السواد الداكن للموقع -->
+                    <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/80 to-transparent z-30 pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- روابط الاتصال والمعلومات السريعة -->
+        <div class="flex flex-wrap justify-center gap-4 mt-12 text-sm text-zinc-400 font-medium">
+            <span class="bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800/60"><i class="fas fa-map-marker-alt text-orange-500 ml-1.5"></i> سوريا، دمشق، البرامكة</span>
+            <a href="mailto:abd.allah.ref999@gmail.com" class="bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800/60 text-orange-400 hover:underline"><i class="fas fa-envelope ml-1.5"></i> eng.abdallah.alrefai@gmail.com</a>
+            <span class="bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800/60"><i class="fas fa-phone-alt text-orange-500 ml-1.5"></i> 581 501 999 963+</span>
+        </div>
+    </section>
+
+    <!-- قسم المهارات والخدمات -->
+    <section id="skills" class="max-w-5xl mx-auto my-24 px-4">
+        <div class="text-center max-w-xl mx-auto mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold">مجالات <span class="text-orange-500">التميز والخبرة</span></h2>
+            <p class="text-zinc-500 text-sm mt-2 font-medium">دمج تقنيات الهندسة والذكاء الاصطناعي مع الواجهات والفنون البصرية</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- بطاقة 1 -->
+            <div class="glass p-6 rounded-2xl hover:border-orange-500/40 transition-all duration-300 group">
+                <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500 text-xl mb-4 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">الذكاء الاصطناعي و الـ Web</h3>
+                <p class="text-zinc-400 text-sm font-light leading-relaxed">بناء وتدريب نماذج تعلم الآلة (Machine Learning) وتكاملها مع الواجهات الخلفية باستخدام Python و تطبيقات الـ Flutter.</p>
+            </div>
+
+            <!-- بطاقة 2 -->
+            <div class="glass p-6 rounded-2xl hover:border-orange-500/40 transition-all duration-300 group">
+                <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500 text-xl mb-4 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">تصميم واجهات المستخدم UI/UX</h3>
+                <p class="text-zinc-400 text-sm font-light leading-relaxed"> رؤية واسعة في التصميم الغرافيكي، بناء وتخطيط تجربة المستخدم لإنتاج واجهات رقمية وتفاعلية متطابقة مع أحدث المعايير العصرية المتكاملة مع تجربة مستخدم سلسة واحترافية.</p>
+            </div>
+
+            <!-- بطاقة 3 -->
+            <div class="glass p-6 rounded-2xl hover:border-orange-500/40 transition-all duration-300 group">
+                <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500 text-xl mb-4 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">المونتاج والموشن جرافيك</h3>
+                <p class="text-zinc-400 text-sm font-light leading-relaxed">صناعة الفيديوهات الاحترافية والوثائقية، وتحريك الرسوم (Motion Graphics) والإنتاج الصوتي الهيكلي.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المسيرة المهنية -->
+    <section id="experience" class="max-w-4xl mx-auto my-24 px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-12"><i class="fas fa-briefcase text-orange-500 ml-2"></i> الخبرات والمسيرة المهنية</h2>
+        <div class="border-r-2 border-zinc-800 pr-6 space-y-10 mr-4">
+            <!-- محطة 1 -->
+            <div class="relative">
+                <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-orange-500/20"></div>
+                <h3 class="font-bold text-lg text-orange-400">Full-Stack Developer (Angular & Django)</h3>
+                <span class="text-xs font-medium text-zinc-500"><i class="far fa-calendar-alt ml-1"></i> يوليو 2023 - الحاضر</span>
+                <p class="text-zinc-400 text-sm font-light mt-2 leading-relaxed">تطوير تطبيق ويب متكامل ومتقدم لتسجيل وتحليل بيانات الطلاب وعرض النتائج بلوحات تحكم تفاعلية متطورة.</p>
+            </div>
+            <!-- محطة 2 -->
+            <div class="relative">
+                <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-zinc-700"></div>
+                <h3 class="font-bold text-lg text-zinc-200">صناعة الأفلام وإخراج الوثائقيات</h3>
+                <span class="text-xs font-medium text-zinc-500"><i class="far fa-calendar-alt ml-1"></i> مارس 2023 - الحاضر</span>
+                <p class="text-zinc-400 text-sm font-light mt-2 leading-relaxed">إخراج وصناعة الأفلام الوثائقية والمحتوى الرقمي للعديد من المؤسسات التعليمية والخيرية المرموقة في مدينة دمشق.</p>
+            </div>
+            <!-- محطة 3 -->
+            <div class="relative">
+                <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-zinc-700 " ></div>
+                <h3 class="font-bold text-lg text-zinc-200">Motion Graphics Creator (SOCPA Project)</h3>
+                <span class="text-xs font-medium text-zinc-500"><i class="far fa-calendar-alt ml-1"></i> سبتمبر 2022 - أبريل 2023</span>
+                <p class="text-zinc-400 text-sm font-light mt-2 leading-relaxed">صناعة وتصميم فيديوهات الموشن جرافيك التوضيحية والرسوم المتحركة الخاصة ببرنامج الهيئة السعودية للمراجعين والمحاسبين.</p>
+            </div>
+            <!-- محطة مشروع Dr.Car -->
+            <div class="relative">
+                <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-orange-500/20 "></div>
+                <h3 class="font-bold text-lg text-orange-400">مشروع التخرج: نظام ذكي لتشخيص أعطال السيارات (Dr.Car)</h3>
+                <span class="text-xs font-medium text-zinc-500"><i class="far fa-calendar-alt ml-1"></i> فبراير 2026 - يونيو 2026</span>
+                <p class="text-zinc-400 text-sm font-light mt-2 leading-relaxed">
+                    تطوير تطبيق هاتف محمول متكامل للتنبؤ بأعطال المركبات وتشخيصها. يتضمن المشروع بناء وتدريب نموذج تعلم آلة متقدم من نوع <span class="text-orange-500/90 font-medium">XGBoost</span> باستخدام قاعدة بيانات ضخمة تحتوي على 8,000 سجل، ومن ثم تحويله إلى صيغة <span class="text-orange-500/90 font-medium">ONNX</span> ليعمل محلياً وبكفاءة عالية داخل تطبيق تم تطويره باستخدام إطار عمل <span class="text-orange-500/90 font-medium">Flutter</span> وقاعدة بيانات <span class="text-orange-500/90 font-medium">Hive</span>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم إشعار المشاريع الذكي -->
+    <section id="projects" class="max-w-4xl mx-auto my-24 px-4">
+        <div class="glass rounded-2xl p-8 md:p-12 text-center border border-orange-500/20 relative overflow-hidden">
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-orange-500/10 rounded-full filter blur-3xl"></div>
+            <div class="text-orange-500 text-3xl mb-4"><i class="fas fa-sliders-h animate-spin" style="animation-duration: 4s;"></i></div>
+            <h2 class="text-xl md:text-2xl font-bold mb-3">معرض المشاريع قيد التطوير والتحديث</h2>
+            <p class="text-zinc-400 text-sm md:text-base max-w-2xl mx-auto font-light leading-relaxed mb-6">
+                لقد قمت بتنفيذ مجموعة متميزة من أنظمة الويب البرمجية والأعمال الفنية الوثائقية. يجري العمل حالياً على تهيئة خوادم العرض لرفع ملفات كود المشاريع والفيديوهات وعرضها بشكل كامل قريباً جداً.
+            </p>
+            <div class="inline-flex items-center space-x-2 space-x-reverse bg-zinc-900 text-zinc-400 text-xs px-4 py-2 rounded-full border border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+                <span class="font-medium">جاري إنشاء معرض الأعمال...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر الأكاديمي الشفاف -->
+    <footer class="text-center py-12 text-xs text-zinc-600 border-t border-neutral-900 bg-neutral-950/50 font-medium">
+        <p class="mb-2">عبد الله الرفاعي — خريج هندسة معلوماتية (ذكاء اصطناعي) | IUST</p>
+    </footer>
+
+</body>
+</html>
