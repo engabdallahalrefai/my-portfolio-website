@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الأعمال الفني | عبد الله الرفاعي</title>
+    
+    <!-- خط Cairo من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات Font Awesome الإصدار الأخير -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS لتنسيق مرن وسريع -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #040406;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* قناع التلاشي الجانبي لحاوية الكروت المصغرة لمنع القص الحاد */
+        .thumb-container-mask {
+            mask-image: linear-gradient(to left, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 70%, transparent 100%);
+        }
+        @media (min-width: 768px) {
+            .thumb-container-mask {
+                mask-image: linear-gradient(to left, transparent 0%, black 15%, black 85%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to left, transparent 0%, black 15%, black 85%, transparent 100%);
+            }
+        }
+
+        /* إخفاء شريط التمرير تماماً لجميع المتصفحات */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* تأثير التمدد الدائري من ركن الشاشة السفلي الأيمن حيث توجد الكروت الصغيرة */
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.8s ease-in-out, clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            clip-path: circle(0% at 85% 85%);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+            clip-path: circle(150% at 85% 85%);
+            pointer-events: auto;
+        }
+
+        /* ستايل تدرج الظل الداكن لتسهيل قراءة النصوص */
+        .overlay {
+            background: linear-gradient(to top, rgba(4, 4, 6, 0.95) 15%, rgba(4, 4, 6, 0.5) 50%, rgba(4, 4, 6, 0.3) 100%);
+        }
+
+        /* */
+        .slide-content h2, 
+        .slide-content h3, 
+        .slide-content p, 
+        .slide-content .tags-container, 
+        .slide-content .actions-container {
+            transform: translateY(40px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.9s ease-out;
+        }
+
+        .slide.active .slide-content h2 { transform: translateY(0); opacity: 1; transition-delay: 0.3s; }
+        .slide.active .slide-content h3 { transform: translateY(0); opacity: 1; transition-delay: 0.4s; }
+        .slide.active .slide-content p { transform: translateY(0); opacity: 1; transition-delay: 0.5s; }
+        .slide.active .slide-content .tags-container { transform: translateY(0); opacity: 1; transition-delay: 0.6s; }
+        .slide.active .slide-content .actions-container { transform: translateY(0); opacity: 1; transition-delay: 0.7s; }
+
+        /* ستايل الكارت الصغير النشط والغير نشط في السلايدر السفلي */
+        .thumb-card {
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .thumb-card.active {
+            border-color: #f97316;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* شريط التمرير المخصص للدرج التفصيلي */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(249, 115, 22, 0.3);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+
+              /*================ ICON ================*/
+        .icon { position: absolute; top: 22px; left: 22px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .15); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; font-size: 20px; opacity: 0; transform: translateY(-20px); transition: .4s; }
+        .card:hover .icon { opacity: 1; transform: translateY(0); }
+
+        /*================ LIGHTBOX ================*/
+        .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, .94); display: none; justify-content: center; align-items: center; z-index: 999; padding: 40px; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); animation: zoom .35s; }
+        @keyframes zoom { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close { position: absolute; top: 30px; right: 40px; font-size: 45px; cursor: pointer; color: white; }
+
+        /*================ BACK BUTTON STYLE ================*/
+        .back-btn { position: absolute; top: 35px; left: 45px; display: flex; align-items: center; gap: 12px; padding: 8px 18px 8px 10px; border-radius: 999px; text-decoration: none; color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .08); transition: .35s cubic-bezier(.2, .8, .2, 1); z-index: 999; }
+        .back-btn:hover { transform: translateY(-3px); background: rgba(249, 115, 22, .18); border-color: rgba(249, 115, 22, .5); box-shadow: 0 18px 35px rgba(249, 115, 22, .25); }
+        .back-btn .btn-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .08); transition: .35s; }
+        .back-btn:hover .btn-icon { background: #f97316; transform: translateX(-4px); }
+        .back-btn i { font-size: 13px; color: white; }
+
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden text-white flex flex-col justify-between relative">
+
+    <!-- -->
+    <header class="fixed top-0 inset-x-0 h-24 z-50 px-6 md:px-12 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-auto">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-500 text-lg">
+                <i class="fa-solid fa-cube animate-pulse"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-black text-white leading-none">معرض الأعمال الفني</h1>
+                <p class="text-[9px] text-zinc-400 mt-3">كل ما يتعلق بأعمال التصميم والمونتاج | عبد الله الرفاعي</p>
+            </div>
+        </div>
+        
+       <a href="index.html" class="back-btn">
+        <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+        العودة للرئيسية
+    </a>
+    </header>
+
+    <!-- -->
+    <div id="slider-container" class="absolute inset-0 w-full h-full z-10">
+        
+        <!-- المشروع الأول: savy market -->
+        <div class="slide active" id="slide-0" data-index="0">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://res.cloudinary.com/kcctdauw/image/upload/v1784494339/Gemini_Generated_Image_u6xdvbu6xdvbu6xd_copy_mr5pha.webp');"></div>
+            <div class="absolute inset-0 overlay"></div>
+            
+            <div class="absolute top-[46%] md:top-[48%] -translate-y-1/2 right-6 md:right-24 left-6 md:left-[45%] z-20 text-right slide-content max-w-3xl">
+                <span class="bg-teal-500/20 text-teal-400 text-xs font-bold px-3.5 py-1 rounded-full border border-teal-500/30"><i class="fa-solid fa-brain ml-1"></i> التصميم الابداعي</span>
+                <h2 class="text-3xl md:text-6xl font-black mt-4 text-white leading-tight">هوية بصرية كاملة<br><span class="text-teal-500">Savy Market</span></h2>
+                <p class="text-zinc-300 text-sm md:text-base mt-4 font-light leading-relaxed">
+                   توليت مسؤولية قيادة وتأسيس القسم الإبداعي (تصميم ومونتاج) لتطبيق "Savy Market"، وهو تطبيق رائد لتوصيل الأغراض المنزلية والبقالة في سوريا. قمت ببناء الهوية البصرية من الصفر، بدءاً من اللوغو وتحديد الأنظمة اللونية والخطوط، وصولاً إلى الإشراف على وتنفيذ كافة الحملات الإعلانية والمحتوى البصري على منصات التواصل الاجتماعي (فيديو وتصميم).
+                </p>
+                <div class="tags-container flex flex-wrap gap-2 mt-4 text-xs text-zinc-400 font-mono">
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Photoshop</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Illustrator</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Premiere</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">After Effects</span>
+                </div>
+                <div class="actions-container flex gap-3 mt-6">
+                    <button onclick="openDrawer(0)" class="bg-teal-500 hover:bg-teal-600 text-white text-xs font-bold px-6 py-3 rounded-full transition-all flex items-center gap-2">
+                        استكشف المشروع بالكامل <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- المشروع الثاني: innolab -->
+        <div class="slide" id="slide-1" data-index="1">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://res.cloudinary.com/kcctdauw/image/upload/v1784493794/Asset_23_dixgds.png');"></div>
+            <div class="absolute inset-0 overlay"></div>
+            
+            <div class="absolute top-[46%] md:top-[48%] -translate-y-1/2 right-6 md:right-24 left-6 md:left-[45%] z-20 text-right slide-content max-w-3xl">
+                <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3.5 py-1 rounded-full border border-yellow-500/30"><i class="fa-solid fa-globe ml-1"></i> تطوير الويب المتكامل</span>
+                <h2 class="text-3xl md:text-6xl font-black mt-4 text-white leading-tight">منصة الأكاديمية الذكية <br><span class="text-yellow-500">Full-Stack Education</span></h2>
+                <p class="text-zinc-300 text-sm md:text-base mt-4 font-light leading-relaxed">
+                    منصة تعليمية تخصصية لإدارة وتتبع مسارات الطلاب الأكاديمية وتقديم لوحات تحكم ديناميكية تفاعلية ترصد مستويات الفهم والتحصيل العلمي الفوري للطلاب بالاعتماد على Django و Angular.
+                </p>
+                <div class="tags-container flex flex-wrap gap-2 mt-4 text-xs text-zinc-400 font-mono">
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Illustrator</span>
+                </div>
+                <div class="actions-container flex gap-3 mt-6">
+                    <button onclick="openDrawer(1)" class="bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-bold px-6 py-3 rounded-full transition-all flex items-center gap-2">
+                        استكشف المشروع بالكامل <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- المشروع الثالث: وثائقيات دمشق -->
+        <div class="slide" id="slide-2" data-index="2">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80');"></div>
+            <div class="absolute inset-0 overlay"></div>
+            
+            <div class="absolute top-[46%] md:top-[48%] -translate-y-1/2 right-6 md:right-24 left-6 md:left-[45%] z-20 text-right slide-content max-w-3xl">
+                <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3.5 py-1 rounded-full border border-red-500/30"><i class="fa-solid fa-film ml-1"></i> الإنتاج الإخراجي والسينمائي</span>
+                <h2 class="text-3xl md:text-6xl font-black mt-4 text-white leading-tight">أفلام وثائقية <br><span class="text-rose-500">Damascus Documentaries</span></h2>
+                <p class="text-zinc-300 text-sm md:text-base mt-4 font-light leading-relaxed">
+                    إنتاج وصناعة مجموعة أفلام وثائقية وفيديوهات ترويجية تروي القصص الإنسانية والتاريخية العريقة للأحياء الدمشقية لصالح مؤسسات خيرية وتنموية بأسلوب روائي بصري مبتكر.
+                </p>
+                <div class="tags-container flex flex-wrap gap-2 mt-4 text-xs text-zinc-400 font-mono">
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Storyboarding</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Cinematography</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Premiere Pro</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Color Grading</span>
+                </div>
+                <div class="actions-container flex gap-3 mt-6">
+                    <button onclick="openDrawer(2)" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-6 py-3 rounded-full transition-all flex items-center gap-2">
+                        استكشف المشروع بالكامل <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- المشروع الرابع: موشن جرافيك SOCPA -->
+        <div class="slide" id="slide-3" data-index="3">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80');"></div>
+            <div class="absolute inset-0 overlay"></div>
+            
+            <div class="absolute top-[46%] md:top-[48%] -translate-y-1/2 right-6 md:right-24 left-6 md:left-[45%] z-20 text-right slide-content max-w-3xl">
+                <span class="bg-teal-500/20 text-teal-400 text-xs font-bold px-3.5 py-1 rounded-full border border-teal-500/30"><i class="fa-solid fa-wand-magic-sparkles ml-1"></i> الرسوم المتحركة والتصميم</span>
+                <h2 class="text-3xl md:text-6xl font-black mt-4 text-white leading-tight">موشن جرافيك SOCPA <br><span class="text-teal-400">Motion & Explainer Ads</span></h2>
+                <p class="text-zinc-300 text-sm md:text-base mt-4 font-light leading-relaxed">
+                    تصميم وإنتاج الرسوم التوضيحية لبرنامج الهيئة السعودية للمراجعين والمحاسبين، لتحويل المصطلحات المالية والمحاسبية المعقدة إلى مشاهد موشن جرافيك مشوقة وسهلة الفهم.
+                </p>
+                <div class="tags-container flex flex-wrap gap-2 mt-4 text-xs text-zinc-400 font-mono">
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">After Effects</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Illustrator</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Explainer Video</span>
+                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Sound Design</span>
+                </div>
+                <div class="actions-container flex gap-3 mt-6">
+                    <button onclick="openDrawer(3)" class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-6 py-3 rounded-full transition-all flex items-center gap-2">
+                        استكشف المشروع بالكامل <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- أقنعة تلاشي الحواف السينمائية لدمج السلايدر بسلاسة مطلقة مع الخلفية الداكنة للموقع -->
+        <div class="absolute inset-0 z-20 pointer-events-none">
+            <!-- ظل داخلي ناعم وعميق للغاية يذيب الأطراف الأربعة بالكامل داخل السواد -->
+            <div class="absolute inset-0 shadow-[inset_0_0_80px_15px_#040406] md:shadow-[inset_0_0_200px_40px_#040406]"></div>
+            
+            <!-- تدرج تلاشي علوي ناعم -->
+            <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#040406] via-[#040406]/60 to-transparent"></div>
+            
+            <!-- تدرج تلاشي سفلي عميق لمراعاة النصوص والتحكم والوصول التدريجي المريح للعين -->
+            <div class="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#040406] via-[#040406]/90 to-transparent"></div>
+            
+            <!-- تدرج تلاشي جانبي للسينما العريضة (يمين ويسار) -->
+            <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#040406] to-transparent hidden md:block"></div>
+            <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#040406] to-transparent hidden md:block"></div>
+        </div>
+
+    </div>
+
+    <!-- الكروت والأزرار أسفل الشاشة -->
+    <div class="fixed bottom-6 right-6 md:right-12 z-30 flex flex-col md:flex-row items-end md:items-center gap-4">
+        
+        <!-- أزرار التنقل اليدوي للمتصفحات المتوافقة مع الاتجاه العربي -->
+        <div class="flex gap-2">
+            <button onclick="prevSlide()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-orange-500 border border-white/10 hover:border-transparent text-white flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+            <button onclick="nextSlide()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-orange-500 border border-white/10 hover:border-transparent text-white flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+        </div>
+
+        <!-- الكروت المصغرة القابلة للضغط للتمدد والتكبير السحري مع إضافة تأثير التلاشي الجانبي -->
+        <div class="flex gap-3 overflow-x-auto max-w-[280px] md:max-w-md py-2 px-1 scrollbar-none thumb-container-mask">
+            
+            <!-- كارت مصغر 1 -->
+            <div onclick="goToSlide(0)" id="thumb-0" class="thumb-card active w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
+                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784494311/Asset_2254_v5pnxw.png" class="w-full h-full object-cover" alt="Savy">
+                <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-all"></div>
+            </div>
+
+            <!-- كارت مصغر 2 -->
+            <div onclick="goToSlide(1)" id="thumb-1" class="thumb-card w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
+                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784493943/Asset_3_vqapic.png" class="w-full h-full object-cover" alt="Educational Platform">
+                <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-all"></div>
+            </div>
+
+            <!-- كارت مصغر 3 -->
+            <div onclick="goToSlide(2)" id="thumb-2" class="thumb-card w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=150&q=80" class="w-full h-full object-cover" alt="Damascus Docs">
+                <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-all"></div>
+            </div>
+
+            <!-- كارت مصغر 4 -->
+            <div onclick="goToSlide(3)" id="thumb-3" class="thumb-card w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=150&q=80" class="w-full h-full object-cover" alt="SOCPA Motion">
+                <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-all"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- مؤشر التنقل الخطي البسيط يسار الشاشة -->
+    <div class="fixed left-6 md:left-12 bottom-12 z-30 hidden md:flex flex-col gap-3">
+        <div class="text-[10px] text-zinc-500 font-mono text-center">المشروع</div>
+        <div class="flex flex-col gap-2 items-center">
+            <span id="dot-0" class="w-2 h-2 rounded-full bg-orange-500 transition-all duration-300"></span>
+            <span id="dot-1" class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+            <span id="dot-2" class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+            <span id="dot-3" class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+        </div>
+    </div>
+
+    <!-- -->
+    <div id="project-drawer" class="fixed inset-y-0 right-0 w-full md:w-[480px] bg-[#060608]/95 backdrop-blur-2xl z-50 border-r border-white/10 shadow-2xl translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col">
+        
+        <!-- هيدر الدرج -->
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#0a0a0d]">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+                <h3 class="text-sm font-bold text-white">دراسة حالة تفصيلية | Case Study</h3>
+            </div>
+            <button onclick="closeDrawer()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <!-- محتوى الدرج القابل للتمرير والمخصص ديناميكياً عبر JS -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6" id="drawer-content">
+            <!-- سيتم ملء هذا الجزء برمجياً عبر الـ Javascript بناءً على المشروع المفتوح -->
+        </div>
+
+        <!-- فوتر الدرج -->
+        <div class="p-6 border-t border-white/10 bg-[#0a0a0d] flex gap-3">
+            <a id="drawer-demo-btn" href="#" target="_blank" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3.5 rounded-xl transition-all text-center flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-play"></i> تجربة المشروع الحية
+            </a>
+            <button onclick="closeDrawer()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold px-6 py-3.5 rounded-xl transition-all">
+                إغلاق النافذة
+            </button>
+        </div>
+    </div>
+
+    <!-- قناع تظليل خلفي للدرج -->
+    <div id="drawer-overlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-500"></div>
+
+    <!-- -->
+    <script>
+        // تعريف بيانات المشاريع بالكامل دون اختصارات
+        const projectsData = [
+            {
+                title: "Savy Market",
+                category: "تصميم بصري ابداعي",
+                accentColor: "teal",
+                description: "منصة رقمية متكاملة لتوصيل البقالة والاحتياجات المنزلية، مع بناء هوية بصرية مبتكرة وإدارة شاملة للمحتوى الإبداعي والحملات التسويقية.",
+                challenge: " تكمن التحدي الرئيسي في قيادة عملية تحويل الهوية البصرية من  مفهوم نظري إلى لغة بصرية متكاملة تجذب الجمهور المحلي. تطلب ذلك موازنة دقيقة بين الحفاظ على هوية العلامة التجارية (Brand Equity) وبين إنتاج محتوى إبداعي متجدد يومياً، مع ضمان اتساق الأسلوب البصري والمونتاج عبر مختلف المنصات الرقمية لترسيخ صورة ذهنية قوية في ذهن العميل.",
+                solution: "تم تبني استراتيجية مركزية الإبداع (Creative Centralization)؛ حيث قمت بتأسيس دليل هوية بصري صارم (Brand Guidelines) ليكون المرجع لكافة المخرجات. اعتمدت في التصميم على التباين اللوني الجريء (Turquoise & Yellow) لإضفاء طابع الحيوية والسرعة، بينما ركزت في المونتاج على توظيف الأنماط (Patterns) والشخصيات الكرتونية (Mascots) التي صممتها لخلق اتصال عاطفي مباشر مع المستخدم. هذا النهج سمح للقسم بإنتاج محتوى مكثف وعالي الجودة دون التضحية بالهوية البصرية الموحدة للمشروع.",
+                metrics: [
+                    { label: "عدد التصاميم المنجزة", val: "+200" },
+                    { label: "تطابق الهوية", val: "100%" },
+                    { label: "مدة إنجاز الهوية كاملة", val: "3 أسابيع" }
+                ],
+                techStack: ["Adobe Illustrator", "Adobe After Effects", "Adobe Photoshop", "Adobe Premiere"],
+                demoUrl: "https://github.com/abdallah-al-refai"
+            },
+            {
+                title: "InnoLab",
+                category: "تطوير الويب المتكامل (Full-Stack)",
+                accentColor: "yellow",
+                description: "منصة ويب ديناميكية لإدخال وتحليل علامات الطلاب وتقدمهم وتقديم لوحات بيانات إحصائية مخصصة للمدراء والمعلمين.",
+                challenge: "إدارة البيانات الضخمة لآلاف الطلاب وإظهار التحليلات والرسوم البيانية وتحديثها بشكل فوري متزامن وآمن دون حدوث بطء في الخوادم.",
+                solution: "تطوير واجهات خلفية متطورة باستخدام Django REST framework والاعتماد على Angular لبناء واجهة أمامية فائقة التجاوب تضمن تحديث المكونات بسلاسة متناهية وبنية تفرعية قوية.",
+                metrics: [
+                    { label: "زمن استجابة الـ API", val: "45ms" },
+                    { label: "مستخم نشط تزامني", val: "1,200+" },
+                    { label: "دقة تقارير الطلاب", val: "100%" }
+                ],
+                techStack: ["Angular", "Django Framework", "PostgreSQL", "REST APIs", "Tailwind CSS"],
+                demoUrl: "https://github.com/abdallah-al-refai"
+            },
+            {
+                title: "Damascus Documentaries",
+                category: "الإنتاج الإخراجي والسينمائي",
+                accentColor: "rose",
+                description: "إخراج وتصوير سلسلة من الأفلام القصيرة والوثائقيات الإنسانية التي تسلط الضوء على عمق الهوية السورية وأنشطة التكافل الاجتماعي في دمشق.",
+                challenge: "كتابة نصوص تروي قصصاً إنسانية حقيقية تلمس وعي الجمهور مع الالتزام بأعلى معايير الإخراج السينمائي في ظروف تصوير ميدانية صعبة.",
+                solution: "إعداد خطط تصوير وهندسة سيناريو محكمة (Storyboard) واستخدام أدوات تصوير احترافية ومونتاج متطور لدمج الألوان السينمائية الدافئة مع مؤثرات صوتية تحرك المشاعر وتوصل الرسالة بنبل.",
+                metrics: [
+                    { label: "مجموع المشاهدات", val: "150K+" },
+                    { label: "أفلام منجزة بالكامل", val: "12 فيلم" },
+                    { label: "تدرج لوني سينمائي", val: "DaVinci LUTs" }
+                ],
+                techStack: ["Storyboarding", "Premiere Pro", "After Effects", "Sound Editing", "Audition"],
+                demoUrl: "https://www.behance.net/Abdullah-Al_Refai"
+            },
+            {
+                title: "SOCPA Motion Explainer",
+                category: "الرسوم المتحركة والتصميم الإبداعي",
+                accentColor: "teal",
+                description: "إنتاج وتصميم فيديوهات موشن جرافيك تعريفية متكاملة لبرامج وأنشطة الهيئة السعودية للمراجعين والمحاسبين.",
+                challenge: "تحويل المفاهيم المحاسبية والمالية الجافة والأنظمة القانونية المعقدة إلى سيناريو بصري شيق وسهل الفهم لرواد الأعمال.",
+                solution: "تصميم رسومات وشخصيات مخصصة بالكامل تتماشى مع الهوية المؤسسية للهيئة، وتحريكها بأسلوب هندسي جذاب ومزامنتها مع أداء صوتي متميز ومؤثرات صوتية محيطية ملفتة.",
+                metrics: [
+                    { label: "فترات الفيديو المنجزة", val: "8 دقائق" },
+                    { label: "رسومات ومقاطع مخصصة", val: "100%" },
+                    { label: "معدل الرضا والتقييم", val: "9.8/10" }
+                ],
+                techStack: ["Adobe After Effects", "Adobe Illustrator", "Motion Tracking", "Audition"],
+                demoUrl: "https://www.behance.net/Abdullah-Al_Refai"
+            }
+        ];
+
+        let currentActiveSlide = 0;
+        const totalSlides = projectsData.length;
+        let isTransitioning = false;
+
+        // دالة الذهاب لشرائح محددة مع تأثير التمدد الدائري
+        function goToSlide(index) {
+            if (currentActiveSlide === index || isTransitioning) return;
+            isTransitioning = true;
+
+            // تحديث كلاسات السلايد الأساسي
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            document.getElementById(`slide-${index}`).classList.add('active');
+
+            // تحديث الكروت المصغرة النشطة
+            const thumbCards = document.querySelectorAll('.thumb-card');
+            thumbCards.forEach(card => card.classList.remove('active'));
+            document.getElementById(`thumb-${index}`).classList.add('active');
+
+            // تحديث المؤشر الخطي اليساري
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i === index) {
+                    dot.className = "w-2 h-2 rounded-full bg-orange-500 transition-all duration-300";
+                } else {
+                    dot.className = "w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300";
+                }
+            }
+
+            currentActiveSlide = index;
+
+            // منع الضغط السريع حتى ينتهي الأنيميشن السينمائي بالكامل
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 1200);
+        }
+
+        function nextSlide() {
+            let next = (currentActiveSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            let prev = (currentActiveSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(prev);
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const sliderContainer = document.getElementById('slider-container');
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            const difference = touchStartX - touchEndX;
+            if (difference > 50) {
+                // سحب لليسار -> التالي
+                nextSlide();
+            } else if (difference < -50) {
+                // سحب لليمين -> السابق
+                prevSlide();
+            }
+        }
+
+        // دعم أسهم الكيبورد للتنقل المريح والمتوافق مع اتجاه التدفق العربي
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                nextSlide();
+            } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                prevSlide();
+            }
+        });
+
+        function openDrawer(index) {
+            const project = projectsData[index];
+            const drawer = document.getElementById('project-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            const contentContainer = document.getElementById('drawer-content');
+            const demoBtn = document.getElementById('drawer-demo-btn');
+
+            // تحديد لون الهوية المخصص لكل مشروع بالتوافق مع التخصص
+            // تعيين القيم الافتراضية للألوان لتكون هي ألوان الشعار الأساسية (مثلاً: الأصفر الخردلي)
+            let colorClass = "text-yellow-500"; // تم تحديثه ليتوافق مع لون الشعار
+            let bgClass = "bg-yellow-500/10 border-yellow-500/20"; // تم تحديثه ليتوافق مع لون الشعار
+
+            if (project.accentColor === "indigo") {
+                colorClass = "text-indigo-400";
+                bgClass = "bg-indigo-500/10 border-indigo-500/20";
+            } else if (project.accentColor === "rose") {
+                colorClass = "text-rose-400";
+                bgClass = "bg-rose-500/10 border-rose-500/20";
+            } else if (project.accentColor === "teal") {
+                colorClass = "text-teal-400";
+                bgClass = "bg-teal-500/10 border-teal-500/20";
+            }
+            // --- تم إضافة الأجزاء التالية بناءً على الصورة ---
+            else if (project.accentColor === "mustard") { // إضافة حالة للأصفر الخردلي (اللون الأساسي للشعار)
+                colorClass = "text-yellow-500";
+                bgClass = "bg-yellow-500/10 border-yellow-500/20";
+            } else if (project.accentColor === "navy") { // إضافة حالة للأزرق الداكن (اللون الثانوي للشعار)
+                colorClass = "text-blue-950"; // مثال لفئة لون أزرق داكن
+                bgClass = "bg-blue-950/10 border-blue-950/20";
+            } else if (project.accentColor === "gray") { // إضافة حالة للرمادي (لون النص والعناصر الأخرى)
+                colorClass = "text-gray-500";
+                bgClass = "bg-gray-500/10 border-gray-500/20";
+            }
+
+ 
+            // توليد الـ HTML للتفاصيل ودراسة الحالة بدقة عالية
+            let metricsHTML = '';
+            project.metrics.forEach(m => {
+                metricsHTML += `
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+                        <div class="text-xl font-extrabold ${colorClass}">${m.val}</div>
+                        <div class="text-[10px] text-zinc-400 mt-1">${m.label}</div>
+                    </div>
+                `;
+            });
+
+            let tagsHTML = '';
+            project.techStack.forEach(tech => {
+                tagsHTML += `
+                    <span class="bg-white/5 border border-white/10 text-zinc-300 text-xs px-3 py-1.5 rounded-lg font-mono">${tech}</span>
+                `;
+            });
+
+            contentContainer.innerHTML = `
+                <div>
+                    <span class="${bgClass} ${colorClass} text-xs font-bold px-3 py-1 rounded-full border">${project.category}</span>
+                    <h2 class="text-2xl font-black text-white mt-4">${project.title}</h2>
+                    <p class="text-zinc-400 text-sm mt-3 leading-relaxed">${project.description}</p>
+                </div>
+
+                <!-- الأرقام والنتائج المحققة -->
+                <div class="grid grid-cols-3 gap-3 pt-2">
+                    ${metricsHTML}
+                </div>
+
+                <!-- تحديات المشروع -->
+                <div class="space-y-3 pt-2 border-t border-white/5">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-500"></i> التحديات الإبداعية والإدارية:
+                    </h4>
+                    <p class="text-xs text-zinc-400 leading-relaxed">${project.challenge}</p>
+                </div>
+
+                <!-- الحل المبتكر -->
+                <div class="space-y-3 pt-2 border-t border-white/5">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb ${colorClass}"></i> الحل والنهج الإبداعي:
+                    </h4>
+                    <p class="text-xs text-zinc-400 leading-relaxed">${project.solution}</p>
+                </div>
+
+                <!-- التقنيات المستخدمة -->
+                <div class="space-y-3 pt-2 border-t border-white/5">
+                    <h4 class="text-sm font-bold text-white mb-2">الأدوات وبيئة العمل المعتمدة:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${tagsHTML}
+                    </div>
+                </div>
+            `;
+
+            // تحديث رابط المعاينة وتطبيق الحركات الجانبية
+            demoBtn.href = project.demoUrl;
+            if (project.accentColor !== "orange") {
+                demoBtn.className = `flex-1 ${project.accentColor === "indigo" ? "bg-indigo-600 hover:bg-indigo-700" : project.accentColor === "rose" ? "bg-rose-600 hover:bg-rose-700" : "bg-teal-600 hover:bg-teal-700"} text-white text-xs font-bold py-3.5 rounded-xl transition-all text-center flex items-center justify-center gap-2`;
+            } else {
+                demoBtn.className = "flex-1 bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3.5 rounded-xl transition-all text-center flex items-center justify-center gap-2";
+            }
+
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                overlay.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+            }, 50);
+        }
+
+        function closeDrawer() {
+            const drawer = document.getElementById('project-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+
+            drawer.classList.add('translate-x-full');
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
