@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري التحديث | عبد الله الرفاعي</title>
+    
+    <!-- استدعاء خط Cairo وتثقيلاته من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- ربط مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* تطبيق خط Cairo على كامل الموقع */
+        body { 
+            background-color: #0b0b0b; 
+            color: #ffffff; 
+            font-family: 'Cairo', sans-serif; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.07); }
+        
+        /* أنيميشن الدوران البطيء للأقواس المضيئة */
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-slow-spin { animation: slow-spin 16s linear infinite; }
+        
+        /* تأثيرات البطاقات والأيقونات */
+        .card{transition:.35s}.card:hover{transform:translateY(-5px);box-shadow:0 0 25px rgba(249,115,22,.15)}
+        .icon{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f97316,#fb923c);font-size:28px;color:#111;}
+        
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0b0b; }
+        ::-webkit-scrollbar-thumb { background: #404040; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #525252; }
+    </style>
+</head>
+<body class="antialiased selection:bg-orange-500 selection:text-white">
+
+    <!-- الهيدر / شريط التنقل (مبسط) -->
+    <nav class="max-w-5xl mx-auto my-6 p-4 glass rounded-full flex justify-between items-center px-8 mx-4 md:mx-auto z-50 relative">
+        <div class="text-orange-500 font-black text-xl tracking-wide">Abdallah Al-Refai</div>
+        <div class="flex items-center space-x-4 space-x-reverse text-zinc-400 text-lg">
+            <a href="index.html" class="text-sm hover:text-orange-500 transition-colors"><i class="fas fa-arrow-right ml-1.5"></i> العودة للرئيسية</a>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي لرسالة التحديث -->
+    <main class="flex-grow flex items-center justify-center px-4 py-16">
+        <div class="max-w-3xl mx-auto text-center">
+            
+            <!-- الأيقونة الدوارة الكبيرة -->
+            <div class="relative w-40 h-40 mx-auto mb-12 flex items-center justify-center">
+                <!-- التوهج الخلفي -->
+                <div class="absolute w-32 h-32 rounded-full bg-orange-500/10 filter blur-3xl z-0"></div>
+                <!-- الأقواس المضيئة -->
+                <div class="absolute inset-0 rounded-full border border-dashed border-orange-500/20 animate-slow-spin z-10"></div>
+                <div class="absolute inset-3 rounded-full border-t-2 border-r-2 border-transparent border-t-orange-500 animate-slow-spin z-10" style="animation-duration: 8s;"></div>
+                <!-- الأيقونة المركزية -->
+                <div class="relative z-20 text-6xl text-orange-500 bg-neutral-950 p-6 rounded-full border border-zinc-800">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+
+            <!-- العنوان والرسالة -->
+            <span class="bg-neutral-900 text-xs text-orange-400 font-bold px-4 py-1.5 rounded-full border border-zinc-800 tracking-widest uppercase">
+                <i class="fas fa-hard-hat text-orange-500 ml-1"></i> تحت الإنشاء
+            </span>
+            
+            <h1 class="text-4xl md:text-5xl font-black mt-8 leading-tight text-zinc-100">
+                نعتذر عن <span class="text-orange-500">الإزعاج المؤقت</span>
+            </h1>
+            
+            <p class="text-base md:text-lg text-zinc-400 mt-6 max-w-2xl mx-auto font-light leading-relaxed">
+                الصفحة التي تحاول الوصول إليها تخضع حالياً لعمليات تطوير شاملة لتحسين تجربة المستخدم وإضافة مشاريع جديدة. نعمل بجد لتقديم أفضل محتوى يليق بكم.
+            </p>
+
+            <!-- فاصل زمني -->
+            <div class="w-24 h-px bg-zinc-800 mx-auto my-16"></div>
+
+            <!-- جدول أعمال التطوير الحالي (إضافة احترافية) -->
+            <div class="text-right mb-16">
+                <h3 class="text-xl font-bold text-zinc-200 mb-8 flex items-center">
+                    <i class="fas fa-tasks text-orange-500 ml-3"></i>
+                    ما الذي نعمل عليه الآن؟
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- المهمة 1 -->
+                    <div class="glass2 card p-6 rounded-2xl flex items-start gap-5 border border-zinc-800">
+                        <div class="icon !w-14 !h-14 !text-2xl shrink-0"><i class="fas fa-code"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-100">إعادة هيكلة معرض المشاريع</h4>
+                            <p class="text-sm text-zinc-400 font-light mt-1">تنظيم المشاريع البرمجية (Angular, Django) لتسهيل التصفح وعرض الكود.</p>
+                        </div>
+                    </div>
+
+                    <!-- المهمة 2 -->
+                    <div class="glass2 card p-6 rounded-2xl flex items-start gap-5 border border-zinc-800">
+                        <div class="icon !w-14 !h-14 !text-2xl shrink-0"><i class="fas fa-video"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-100">أرشفة الأعمال الإبداعية</h4>
+                            <p class="text-sm text-zinc-400 font-light mt-1">رفع وتحسين جودة فيديوهات الموشن جرافيك والوثائقيات لعرضها.</p>
+                        </div>
+                    </div>
+
+                    <!-- المهمة 3 -->
+                    <div class="glass2 card p-6 rounded-2xl flex items-start gap-5 border border-zinc-800">
+                        <div class="icon !w-14 !h-14 !text-2xl shrink-0"><i class="fas fa-robot"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-100">توثيق مشروع Dr.Car</h4>
+                            <p class="text-sm text-zinc-400 font-light mt-1">كتابة تفصيلية شاملة حول نموذج الذكاء الاصطناعي وتطبيق Flutter.</p>
+                        </div>
+                    </div>
+
+                    <!-- المهمة 4 -->
+                    <div class="glass2 card p-6 rounded-2xl flex items-start gap-5 border border-zinc-800">
+                        <div class="icon !w-14 !h-14 !text-2xl shrink-0"><i class="fas fa-tachometer-alt"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-100">تحسين الأداء</h4>
+                            <p class="text-sm text-zinc-400 font-light mt-1">ضمان سرعة تحميل الصفحة وتجاوبها مع كافة الأجهزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- زر العودة ومعلومات الاتصال -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
+                <a href="index.html" class="bg-orange-500 text-black font-bold px-8 py-3 rounded-full hover:bg-orange-400 transition-colors w-full sm:w-auto">
+                    <i class="fas fa-home ml-2"></i> العودة للصفحة الرئيسية
+                </a>
+                <div class="text-sm text-zinc-500">
+                    للاستفسار العاجل: 
+                    <a href="mailto:eng.abdallah.alrefai@gmail.com" class="text-orange-400 hover:underline mr-1">eng.abdallah.alrefai@gmail.com</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- الفوتر الأكاديمي الشفاف -->
+    <footer class="text-center py-10 text-xs text-zinc-700 border-t border-neutral-900 bg-neutral-950/50 font-medium mt-auto">
+        <p class="mb-2">عبد الله الرفاعي — مهندس برمجيات وصانع محتوى إبداعي</p>
+        <p>شكراً لصبركم</p>
+    </footer>
+
+</body>
+</html>
