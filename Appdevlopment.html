@@ -10,10 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- مكتبة الأيقونات Font Awesome الاصدار الأخير -->
+    <!-- مكتبة الأيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Tailwind CSS لتنسيق مرن وسريع -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -24,7 +24,7 @@
             user-select: none;
         }
 
-        /* قناع التلاشي الجانبي لحاوية الكروت المصغرة لمنع القص الحاد */
+        /* قناع التلاشي الجانبي */
         .thumb-container-mask {
             mask-image: linear-gradient(to left, black 70%, transparent 100%);
             -webkit-mask-image: linear-gradient(to left, black 70%, transparent 100%);
@@ -36,16 +36,16 @@
             }
         }
 
-        /* إخفاء شريط التمرير تماماً لجميع المتصفحات */
+        /* إخفاء شريط التمرير */
         .scrollbar-none::-webkit-scrollbar {
             display: none;
         }
         .scrollbar-none {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* تأثير التمدد الدائري من ركن الشاشة السفلي الأيمن حيث توجد الكروت الصغيرة */
+        /* تأثير التمدد الدائري */
         .slide {
             position: absolute;
             inset: 0;
@@ -63,260 +63,214 @@
             pointer-events: auto;
         }
 
-        /* ستايل تدرج الظل الداكن لتسهيل قراءة النصوص */
+        /* تدرج الظل الداكن */
         .overlay {
-            background: linear-gradient(to top, rgba(4, 4, 6, 0.95) 15%, rgba(4, 4, 6, 0.5) 50%, rgba(4, 4, 6, 0.3) 100%);
+            background: linear-gradient(to top, rgba(4, 4, 6, 0.98) 25%, rgba(4, 4, 6, 0.6) 60%, rgba(4, 4, 6, 0.4) 100%);
         }
 
+        /* أنيميشن نصوص السلايدر */
         .slide-content h2, 
         .slide-content h3, 
         .slide-content p, 
         .slide-content .tags-container, 
         .slide-content .actions-container {
-            transform: translateY(40px);
+            transform: translateY(30px);
             opacity: 0;
-            transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.9s ease-out;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease-out;
         }
 
-        .slide.active .slide-content h2 { transform: translateY(0); opacity: 1; transition-delay: 0.3s; }
-        .slide.active .slide-content h3 { transform: translateY(0); opacity: 1; transition-delay: 0.4s; }
-        .slide.active .slide-content p { transform: translateY(0); opacity: 1; transition-delay: 0.5s; }
-        .slide.active .slide-content .tags-container { transform: translateY(0); opacity: 1; transition-delay: 0.6s; }
-        .slide.active .slide-content .actions-container { transform: translateY(0); opacity: 1; transition-delay: 0.7s; }
+        .slide.active .slide-content h2 { transform: translateY(0); opacity: 1; transition-delay: 0.2s; }
+        .slide.active .slide-content h3 { transform: translateY(0); opacity: 1; transition-delay: 0.3s; }
+        .slide.active .slide-content p { transform: translateY(0); opacity: 1; transition-delay: 0.4s; }
+        .slide.active .slide-content .tags-container { transform: translateY(0); opacity: 1; transition-delay: 0.5s; }
+        .slide.active .slide-content .actions-container { transform: translateY(0); opacity: 1; transition-delay: 0.6s; }
 
-        /* ستايل الكارت الصغير النشط والغير نشط والمعطل */
         .thumb-card {
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .thumb-card.active {
             border-color: #f97316;
             box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
-            transform: scale(1.05) translateY(-5px);
-        }
-        .thumb-card.disabled {
-            opacity: 0.4;
-            filter: grayscale(100%);
-            cursor: not-allowed;
+            transform: scale(1.05) translateY(-3px);
         }
 
-        /* شريط التمرير المخصص للدرج التفصيلي */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(249, 115, 22, 0.3);
-            border-radius: 99px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #f97316;
-        }
+        /* شريط تمرير الدرج التفصيلي */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+        ::-webkit-scrollbar-thumb { background: rgba(249, 115, 22, 0.3); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f97316; }
 
-        /* BACK BUTTON STYLE */
-        .back-btn { position: absolute; top: 35px; left: 45px; display: flex; align-items: center; gap: 12px; padding: 8px 18px 8px 10px; border-radius: 999px; text-decoration: none; color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .08); transition: .35s cubic-bezier(.2, .8, .2, 1); z-index: 999; }
-        .back-btn:hover { transform: translateY(-3px); background: rgba(249, 115, 22, .18); border-color: rgba(249, 115, 22, .5); box-shadow: 0 18px 35px rgba(249, 115, 22, .25); }
-        .back-btn .btn-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .08); transition: .35s; }
-        .back-btn:hover .btn-icon { background: #f97316; transform: translateX(-4px); }
-        .back-btn i { font-size: 13px; color: white; }
+        /* تعديل زر العودة ليكون متجاوباً ومتناسقاً */
+        .back-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 6px 14px 6px 8px; 
+            border-radius: 999px; 
+            text-decoration: none; 
+            color: #fff; 
+            font-size: 12px; 
+            font-weight: 700; 
+            background: rgba(255, 255, 255, .08); 
+            border: 1px solid rgba(255, 255, 255, .15); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            transition: .35s ease;
+            white-space: nowrap;
+        }
+        .back-btn:hover { 
+            background: rgba(249, 115, 22, .2); 
+            border-color: rgba(249, 115, 22, .5); 
+        }
+        .back-btn .btn-icon { 
+            width: 26px; 
+            height: 26px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: rgba(255, 255, 255, .1); 
+        }
+        .back-btn i { font-size: 11px; color: white; }
     </style>
 </head>
 <body class="h-screen w-screen overflow-hidden text-white flex flex-col justify-between relative">
 
-    <header class="fixed top-0 inset-x-0 h-24 z-50 px-6 md:px-12 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-auto">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-500 text-lg">
+    <!-- الهيدر العلوي المعدل لمنع التداخل في الهاتف -->
+    <header class="fixed top-0 inset-x-0 pt-4 pb-2 px-4 md:px-12 z-50 flex flex-row items-center justify-between bg-gradient-to-b from-black/90 via-black/60 to-transparent pointer-events-auto gap-2">
+        <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-500 text-base shrink-0">
                 <i class="fa-solid fa-cube animate-pulse"></i>
             </div>
-            <div>
-                <h1 class="text-sm font-black text-white leading-none">معرض الأعمال التقني</h1>
-                <p class="text-[9px] text-zinc-400 mt-3">كل ما يتعلق بالمشاريع التقنية | عبد الله الرفاعي</p>
+            <div class="overflow-hidden">
+                <h1 class="text-xs md:text-sm font-black text-white leading-tight truncate">معرض الأعمال التقني</h1>
+                <p class="text-[9px] text-zinc-400 mt-0.5 truncate hidden sm:block">كل ما يتعلق بالمشاريع التقنية | عبد الله الرفاعي</p>
             </div>
         </div>
         
-        <a href="index.html" class="back-btn">
+        <a href="index.html" class="back-btn shrink-0">
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
-            العودة للرئيسية
+            <span>الرئيسية</span>
         </a>
     </header>
 
+    <!-- حاوية السلايدر -->
     <div id="slider-container" class="absolute inset-0 w-full h-full z-10">
         
-        <!-- المشروع الأول: Dr Car (مفعّل) -->
+        <!-- المشروع الأول: Dr Car -->
         <div class="slide active" id="slide-0" data-index="0">
             <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://res.cloudinary.com/kcctdauw/image/upload/v1784825092/Gemini_Generated_Image_48s9sn48s9sn48s9_ht1ugj.png');"></div>
             <div class="absolute inset-0 overlay"></div>
             
-            <div class="absolute top-[46%] md:top-[48%] -translate-y-1/2 right-6 md:right-24 left-6 md:left-[45%] z-20 text-right slide-content max-w-3xl">
-                <span class="bg-[#46ABE5]/20 text-[#46ABE5] text-xs font-bold px-3.5 py-1 rounded-full border border-[#46ABE5]/30">Full-Stack App Designer & Developer</span>
-                <h2 class="text-3xl md:text-6xl font-black mt-4 text-white leading-tight">تصميم وتطوير تطبيقات كاملة<br><span class="text-[#46ABE5]">Dr. Car</span></h2>
-                <p class="text-zinc-300 text-sm md:text-base mt-4 font-light leading-relaxed">
-                  توليت تصميم وتطوير نظام <strong>Dr. Car</strong> المتكامل لتشخيص أعطال السيارات باللغة العربية واللهجات المحلية باستخدام خوارزميات التعلم الآلي ونماذج الذكاء الاصطناعي "قمت بتدريب نموذج خاص للمشروع"، مع بناء واجهات مستخدم عصرية وسريعة الاستجابة وربطها بخدمات الإدارة الجغرافية.
+            <!-- تم تعديل تموضع المحتوى وأحجام الخطوط للتناسب مع الهواتف -->
+            <div class="absolute top-[52%] md:top-[48%] -translate-y-1/2 right-4 md:right-24 left-4 md:left-[45%] z-20 text-right slide-content max-w-3xl">
+                <span class="bg-[#46ABE5]/20 text-[#46ABE5] text-[10px] md:text-xs font-bold px-3 py-1 rounded-full border border-[#46ABE5]/30 inline-block">Full-Stack App Designer & Developer</span>
+                <h2 class="text-2xl sm:text-4xl md:text-6xl font-black mt-2 md:mt-4 text-white leading-tight">تصميم وتطوير تطبيقات كاملة<br><span class="text-[#46ABE5]">Dr. Car</span></h2>
+                
+                <!-- نص مختصر ومريح للعين في الهواتف -->
+                <p class="text-zinc-300 text-xs md:text-base mt-2 md:mt-4 font-light leading-relaxed line-clamp-4 md:line-clamp-none">
+                  توليت تصميم وتطوير نظام <strong>Dr. Car</strong> المتكامل لتشخيص أعطال السيارات باللغة العربية واللهجات المحلية باستخدام خوارزميات التعلم الآلي ونماذج الذكاء الاصطناعي مع بناء واجهات مستخدم عصرية وسريعة الاستجابة.
                 </p>
-                <div class="tags-container flex flex-wrap gap-2 mt-4 text-xs text-zinc-400 font-mono">
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Flutter</span>
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Dart</span>
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Onnex Runtime</span>
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">Python</span>
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">FastAPI</span>
-                    <span class="bg-white/5 px-3 py-1 rounded-md border border-white/10">XGBoost</span>
+
+                <div class="tags-container flex flex-wrap gap-1.5 md:gap-2 mt-3 md:mt-4 text-[10px] md:text-xs text-zinc-400 font-mono">
+                    <span class="bg-white/5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-md border border-white/10">Flutter</span>
+                    <span class="bg-white/5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-md border border-white/10">Dart</span>
+                    <span class="bg-white/5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-md border border-white/10">Python</span>
+                    <span class="bg-white/5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-md border border-white/10">FastAPI</span>
+                    <span class="bg-white/5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-md border border-white/10">XGBoost</span>
                 </div>
-                <div class="actions-container flex gap-3 mt-6">
-                    <button onclick="openDrawer(0)" class="bg-[#46ABE5] hover:bg-[#3595cb] text-white text-xs font-bold px-6 py-3 rounded-full transition-all flex items-center gap-2">
+                <div class="actions-container flex gap-3 mt-4 md:mt-6">
+                    <button onclick="openDrawer(0)" class="bg-[#46ABE5] hover:bg-[#3595cb] text-white text-xs font-bold px-5 py-2.5 md:px-6 md:py-3 rounded-full transition-all flex items-center gap-2">
                         استكشف المشروع بالكامل <i class="fa-solid fa-circle-info"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- باقي المشاريع مجهزة بالخلفية فقط مع تعطيل المحتوى وتجاوزها بالبرمجة -->
-        <div class="slide" id="slide-1" data-index="1"></div>
-        <div class="slide" id="slide-2" data-index="2"></div>
-        <div class="slide" id="slide-3" data-index="3"></div>
-
+        <!-- أقنعة التلاشي السينمائي -->
         <div class="absolute inset-0 z-20 pointer-events-none">
-            <div class="absolute inset-0 shadow-[inset_0_0_80px_15px_#040406] md:shadow-[inset_0_0_200px_40px_#040406]"></div>
-            <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#040406] via-[#040406]/60 to-transparent"></div>
-            <div class="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#040406] via-[#040406]/90 to-transparent"></div>
-            <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#040406] to-transparent hidden md:block"></div>
-            <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#040406] to-transparent hidden md:block"></div>
+            <div class="absolute inset-0 shadow-[inset_0_0_60px_10px_#040406] md:shadow-[inset_0_0_200px_40px_#040406]"></div>
+            <div class="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#040406] via-[#040406]/60 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#040406] via-[#040406]/90 to-transparent"></div>
         </div>
 
     </div>
 
-    <!-- الكروت والأزرار أسفل الشاشة (محفوظة بالكامل ومظللة كـ "معطلة") -->
-    <div class="fixed bottom-6 right-6 md:right-12 z-30 flex flex-col md:flex-row items-end md:items-center gap-4">
+    <!-- الكروت والأزرار أسفل الشاشة -->
+    <div class="fixed bottom-4 right-4 md:right-12 z-30 flex flex-col md:flex-row items-end md:items-center gap-3">
         
+        <!-- أزرار التنقل اليدوي -->
         <div class="flex gap-2">
-            <button onclick="prevSlide()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-orange-500 border border-white/10 hover:border-transparent text-white flex items-center justify-center transition-all">
+            <button onclick="prevSlide()" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-orange-500 border border-white/10 text-white flex items-center justify-center transition-all backdrop-blur-md">
                 <i class="fa-solid fa-chevron-right text-xs"></i>
             </button>
-            <button onclick="nextSlide()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-orange-500 border border-white/10 hover:border-transparent text-white flex items-center justify-center transition-all">
+            <button onclick="nextSlide()" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-orange-500 border border-white/10 text-white flex items-center justify-center transition-all backdrop-blur-md">
                 <i class="fa-solid fa-chevron-left text-xs"></i>
             </button>
         </div>
 
-         <!-- الكروت المصغرة (Thumbnails) -->
-        <div class="flex gap-3 overflow-x-auto max-w-[280px] md:max-w-md py-2 px-1 scrollbar-none thumb-container-mask">
-            
-            <div onclick="goToSlide(0)" id="thumb-0" class="thumb-card active w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
-                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784826997/Gemini_Generated_Image_yyb147yyb147yyb1_copy_ya4pw4.webp" class="w-full h-full object-cover" alt="Dr. Car">
-                <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-all"></div>
+        <!-- الكروت المصغرة النشطة فقط -->
+        <div class="flex gap-2.5 overflow-x-auto max-w-[280px] md:max-w-md py-1 px-1 scrollbar-none thumb-container-mask">
+            <div onclick="goToSlide(0)" id="thumb-0" class="thumb-card active w-14 h-16 md:w-20 md:h-24 rounded-xl md:rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 cursor-pointer relative">
+                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784826997/Gemini_Generated_Image_yyb147yyb147yyb1_copy_ya4pw4.webp" class="w-full h-full object-cover" alt="Dr Car">
+                <div class="absolute inset-0 bg-black/30 hover:bg-transparent transition-all"></div>
             </div>
-
-          <!--  <div onclick="goToSlide(1)" id="thumb-1" class="thumb-card disabled w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 relative">
-                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784493943/Asset_3_vqapic.png" class="w-full h-full object-cover" alt="InnoLab">
-                <div class="absolute inset-0 bg-black/70 flex items-center justify-center text-[10px] font-bold text-zinc-400">قريباً</div>
-            </div>
-
-            <div onclick="goToSlide(2)" id="thumb-2" class="thumb-card disabled w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 relative">
-                <img src="https://res.cloudinary.com/kcctdauw/image/upload/v1784580092/Asset_15_ofgaud.png" class="w-full h-full object-cover" alt="X.Station">
-                <div class="absolute inset-0 bg-black/70 flex items-center justify-center text-[10px] font-bold text-zinc-400">قريباً</div>
-            </div>
-
-            <div onclick="goToSlide(3)" id="thumb-3" class="thumb-card disabled w-16 h-20 md:w-20 md:h-24 rounded-2xl border-2 border-white/10 overflow-hidden shrink-0 relative">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=150&q=80" class="w-full h-full object-cover" alt="SOCPA Motion">
-                <div class="absolute inset-0 bg-black/70 flex items-center justify-center text-[10px] font-bold text-zinc-400">قريباً</div>
-            </div>
-
         </div>
-    </div> -->
+    </div>
 
-    <!-- مؤشر التنقل الخطي -->
+    <!-- مؤشر التنقل الخطي اليساري -->
     <div class="fixed left-6 md:left-12 bottom-12 z-30 hidden md:flex flex-col gap-3">
         <div class="text-[10px] text-zinc-500 font-mono text-center">المشروع</div>
         <div class="flex flex-col gap-2 items-center">
             <span id="dot-0" class="w-2 h-2 rounded-full bg-orange-500 transition-all duration-300"></span>
-            <span id="dot-1" class="w-1.5 h-1.5 rounded-full bg-zinc-700 transition-all duration-300 opacity-40"></span>
-            <span id="dot-2" class="w-1.5 h-1.5 rounded-full bg-zinc-700 transition-all duration-300 opacity-40"></span>
-            <span id="dot-3" class="w-1.5 h-1.5 rounded-full bg-zinc-700 transition-all duration-300 opacity-40"></span>
         </div>
     </div>
 
-    <!-- الدرج الجانبي للتفاصيل -->
+    <!-- الدرج التفصيلي Case Study -->
     <div id="project-drawer" class="fixed inset-y-0 right-0 w-full md:w-[480px] bg-[#060608]/95 backdrop-blur-2xl z-50 border-r border-white/10 shadow-2xl translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col">
         
-        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#0a0a0d]">
+        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-[#0a0a0d]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-                <h3 class="text-sm font-bold text-white">دراسة حالة تفصيلية | Case Study</h3>
+                <h3 class="text-xs md:text-sm font-bold text-white">دراسة حالة تفصيلية | Case Study</h3>
             </div>
             <button onclick="closeDrawer()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-6 space-y-6" id="drawer-content">
-            <!-- يتم التعبئة ديناميكياً بواسطة JavaScript -->
-        </div>
+        <div class="flex-1 overflow-y-auto p-5 md:p-6 space-y-6" id="drawer-content"></div>
 
-        <div class="p-6 border-t border-white/10 bg-[#0a0a0d] flex gap-3">
+        <div class="p-5 border-t border-white/10 bg-[#0a0a0d] flex gap-3">
             <a id="drawer-demo-btn" href="#" target="_blank" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3.5 rounded-xl transition-all text-center flex items-center justify-center gap-2">
                 <i class="fa-solid fa-circle-play"></i> تجربة المشروع الحية
             </a>
-            <button onclick="closeDrawer()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold px-6 py-3.5 rounded-xl transition-all">
-                إغلاق النافذة
+            <button onclick="closeDrawer()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold px-5 py-3.5 rounded-xl transition-all">
+                إغلاق
             </button>
         </div>
     </div>
 
     <div id="drawer-overlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-500"></div>
 
+    <!-- السكريبت البرمجي المعدل -->
     <script>
-        // مصفوفة بيانات المشاريع (المشاريع غير الجاهزة تم تحديد disabled: true لها)
+        // مصفوفة المشاريع محصورة حالياً بالمشاريع المفعلة فقط لمنع السحب لأعمال غير متعلقة
         const projectsData = [
             {
-                disabled: false,
                 title: "Dr. Car",
                 category: "Full-Stack App Designer & Developer",
                 accentColor: "[#46ABE5]",
                 description: "منصة رقمية متكاملة لتشخيص أعطال المركبات وبيع الخدمات المتعلقة بها.",
-                challenge: "تمثل التحدي الأكبر في معالجة غياب الأدوات التشخيصية الذكية باللغة العربية التي تفهم اللهجات المحلية غير الرسمية (مثل: التقطيشة، التنطيعة، وغيرها) وربطها برمز الأعطال الموحد (OBD-II Codes). تطلب ذلك التغلب على قيود الموارد الحوسبية للأجهزة المحمولة من خلال تصميم بنية خفيفة الوزن تعمل بكفاءة على وحدة المعالجة المركزية (CPU)، إلى جانب معالجة نقص البيانات للأنواع النادرة وضمان استقرار التطبيق وعمله بكفاءة حتى في ظروف انقطاع الإنترنت عبر ميزانية تخزين مؤقتة (Offline Resilience).",
-                solution: "تم بناء نظام ذكاء اصطناعي هجين ثنائي المراحل (Two-Stage Classifier) باستخدام خوارزمية XGBoost ونماذج TF-IDF لمعالجة النصوص واللهجات العربية بدقة عالية وسرعة تنفيذ فائقة. تم تطوير واجهة مستخدم سلسة وعالية الأداء باستخدام إطار العمل Flutter، مع دمج طبقة قواعد برمجية تصحيحية (Rule-Based Layer) ونظام توليد لغوي محلي مبسط (Qwen NLG) لتقديم نتائج سريعة ومبسطة للمستخدم، مع ربط النظام بموديول خدمي متكامل لإدارة الطوارئ ومواقع الصيانة الجغرافية.",
+                challenge: "تمثل التحدي الأكبر في معالجة غياب الأدوات التشخيصية الذكية باللغة العربية التي تفهم اللهجات المحلية غير الرسمية وربطها برمز الأعطال الموحد (OBD-II Codes)، مع ضمان استقرار التطبيق وعمله بكفاءة حتى في ظروف انقطاع الإنترنت.",
+                solution: "تم بناء نظام ذكاء اصطناعي هجين ثنائي المراحل باستخدام خوارزمية XGBoost ونماذج TF-IDF لمعالجة النصوص واللهجات العربية بدقة عالية. تم تطوير واجهة مستخدم سلسة وعالية الأداء باستخدام إطار العمل Flutter.",
                 metrics: [
                     { label: "زمن الاستجابة والاستدلال", val: "-200 ms" },
-                    { label: "معدل النجاح في وضع عدم الاتصال", val: "100%" },
-                    { label: "مدة إنجاز الهوية كاملة", val: "3 أسابيع" }
+                    { label: "معدل النجاح بدون إنترنت", val: "100%" },
+                    { label: "مدى التوافقية", val: "Cross-Platform" }
                 ],
-                techStack: ["Flutter","Dart","TF-IDF","Onnex Runtime", "Python", "FastAPI", "XGBoost"],
+                techStack: ["Flutter", "Dart", "TF-IDF", "Onnx Runtime", "Python", "FastAPI", "XGBoost"],
                 demoUrl: "https://dr-car-landingpage.netlify.app/"
-            },
-            {
-                disabled: true, // محفوط ومُعطل لاحقاً
-                title: "InnoLab",
-                category: "تصميم لوغو ونمط فني",
-                accentColor: "yellow",
-                description: "InnoLab هو مختبر علمي...",
-                challenge: "تحديات اللوغو...",
-                solution: "الحل المعماري...",
-                metrics: [],
-                techStack: ["Adobe Illustrator"],
-                demoUrl: "#"
-            },
-            {
-                disabled: true, // محفوط ومُعطل لاحقاً
-                title: "X.Station",
-                category: "تصميم هوية بصرية متكاملة",
-                accentColor: "cyan",
-                description: "بناء وتصميم هوية بصرية متكاملة لعلامة X.Station...",
-                challenge: "صياغة هوية بصرية عصرية...",
-                solution: "ابتكار شعار ديناميكي...",
-                metrics: [],
-                techStack: ["Adobe Illustrator", "Adobe Photoshop"],
-                demoUrl: "#"
-            },
-            {
-                disabled: true, // محفوط ومُعطل لاحقاً
-                title: "SOCPA Motion Explainer",
-                category: "الرسوم المتحركة والتصميم الإبداعي",
-                accentColor: "teal",
-                description: "إنتاج وتصميم فيديوهات موشن جرافيك...",
-                challenge: "تحويل المفاهيم المحاسبية...",
-                solution: "تصميم رسومات وشخصيات مخصصة...",
-                metrics: [],
-                techStack: ["Adobe After Effects", "Adobe Illustrator"],
-                demoUrl: "#"
             }
         ];
 
@@ -325,25 +279,27 @@
         let isTransitioning = false;
 
         function goToSlide(index) {
-            // منع الانتقال إذا كان المشروع معطلاً (disabled) أو الشريحة الحالية هي نفسها
-            if (projectsData[index].disabled || currentActiveSlide === index || isTransitioning) return;
+            if (currentActiveSlide === index || isTransitioning || index >= totalSlides) return;
             isTransitioning = true;
 
             const slides = document.querySelectorAll('.slide');
             slides.forEach(slide => slide.classList.remove('active'));
             
-            document.getElementById(`slide-${index}`).classList.add('active');
+            const targetSlide = document.getElementById(`slide-${index}`);
+            if(targetSlide) targetSlide.classList.add('active');
 
             const thumbCards = document.querySelectorAll('.thumb-card');
             thumbCards.forEach(card => card.classList.remove('active'));
-            document.getElementById(`thumb-${index}`).classList.add('active');
+            
+            const targetThumb = document.getElementById(`thumb-${index}`);
+            if(targetThumb) targetThumb.classList.add('active');
 
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.getElementById(`dot-${i}`);
-                if (i === index) {
-                    dot.className = "w-2 h-2 rounded-full bg-orange-500 transition-all duration-300";
-                } else {
-                    dot.className = "w-1.5 h-1.5 rounded-full bg-zinc-700 transition-all duration-300 opacity-40";
+                if (dot) {
+                    dot.className = (i === index) 
+                        ? "w-2 h-2 rounded-full bg-orange-500 transition-all duration-300"
+                        : "w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300";
                 }
             }
 
@@ -354,24 +310,19 @@
             }, 1200);
         }
 
-        // البحث عن الشريحة المفعّلة التالية عند التقليب
         function nextSlide() {
+            if (totalSlides <= 1) return;
             let next = (currentActiveSlide + 1) % totalSlides;
-            while (projectsData[next].disabled && next !== currentActiveSlide) {
-                next = (next + 1) % totalSlides;
-            }
             goToSlide(next);
         }
 
-        // البحث عن الشريحة المفعّلة السابقة عند التقليب
         function prevSlide() {
+            if (totalSlides <= 1) return;
             let prev = (currentActiveSlide - 1 + totalSlides) % totalSlides;
-            while (projectsData[prev].disabled && prev !== currentActiveSlide) {
-                prev = (prev - 1 + totalSlides) % totalSlides;
-            }
             goToSlide(prev);
         }
 
+        // معالجة اللمس والسحب بمرونة
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -386,6 +337,9 @@
         }, { passive: true });
 
         function handleSwipeGesture() {
+            // لن يتم السحب إلا إذا كان هناك أكثر من مشروع واحد في القائمة
+            if (totalSlides <= 1) return; 
+            
             const difference = touchStartX - touchEndX;
             if (difference > 50) {
                 nextSlide();
@@ -404,22 +358,22 @@
 
         function openDrawer(index) {
             const project = projectsData[index];
-            if (project.disabled) return;
+            if(!project) return;
 
             const drawer = document.getElementById('project-drawer');
             const overlay = document.getElementById('drawer-overlay');
             const contentContainer = document.getElementById('drawer-content');
             const demoBtn = document.getElementById('drawer-demo-btn');
 
-            let colorClass = "text-[#46ABE5]"; 
-            let bgClass = "bg-[#46ABE5]/10 border-[#46ABE5]/20"; 
+            let colorClass = "text-[#46ABE5]";
+            let bgClass = "bg-[#46ABE5]/10 border-[#46ABE5]/20";
 
             let metricsHTML = '';
             project.metrics.forEach(m => {
                 metricsHTML += `
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                        <div class="text-xl font-extrabold ${colorClass}">${m.val}</div>
-                        <div class="text-[10px] text-zinc-400 mt-1">${m.label}</div>
+                    <div class="p-3 md:p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+                        <div class="text-base md:text-xl font-extrabold ${colorClass}">${m.val}</div>
+                        <div class="text-[9px] md:text-[10px] text-zinc-400 mt-1">${m.label}</div>
                     </div>
                 `;
             });
@@ -427,38 +381,38 @@
             let tagsHTML = '';
             project.techStack.forEach(tech => {
                 tagsHTML += `
-                    <span class="bg-white/5 border border-white/10 text-zinc-300 text-xs px-3 py-1.5 rounded-lg font-mono">${tech}</span>
+                    <span class="bg-white/5 border border-white/10 text-zinc-300 text-[11px] px-2.5 py-1 rounded-lg font-mono">${tech}</span>
                 `;
             });
 
             contentContainer.innerHTML = `
                 <div>
                     <span class="${bgClass} ${colorClass} text-xs font-bold px-3 py-1 rounded-full border">${project.category}</span>
-                    <h2 class="text-2xl font-black text-white mt-4">${project.title}</h2>
-                    <p class="text-zinc-400 text-sm mt-3 leading-relaxed">${project.description}</p>
+                    <h2 class="text-xl md:text-2xl font-black text-white mt-3">${project.title}</h2>
+                    <p class="text-zinc-400 text-xs md:text-sm mt-2 leading-relaxed">${project.description}</p>
                 </div>
 
-                <div class="grid grid-cols-3 gap-3 pt-2">
+                <div class="grid grid-cols-3 gap-2 md:gap-3 pt-2">
                     ${metricsHTML}
                 </div>
 
-                <div class="space-y-3 pt-2 border-t border-white/5">
-                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <h4 class="text-xs md:text-sm font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-triangle-exclamation text-yellow-500"></i> التحديات والقيود التقنية:
                     </h4>
                     <p class="text-xs text-zinc-400 leading-relaxed">${project.challenge}</p>
                 </div>
 
-                <div class="space-y-3 pt-2 border-t border-white/5">
-                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb ${colorClass}"></i> الحل المعماري والنموذج البرمجي المتبع:
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <h4 class="text-xs md:text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb ${colorClass}"></i> الحل المعماري والنموذج البرمجي:
                     </h4>
                     <p class="text-xs text-zinc-400 leading-relaxed">${project.solution}</p>
                 </div>
 
-                <div class="space-y-3 pt-2 border-t border-white/5">
-                    <h4 class="text-sm font-bold text-white mb-2">الأدوات وبيئة العمل المعتمدة:</h4>
-                    <div class="flex flex-wrap gap-2">
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <h4 class="text-xs md:text-sm font-bold text-white mb-2">الأدوات وبيئة العمل:</h4>
+                    <div class="flex flex-wrap gap-1.5 md:gap-2">
                         ${tagsHTML}
                     </div>
                 </div>
