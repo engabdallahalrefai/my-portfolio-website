@@ -1,0 +1,3302 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="أرسل طلب التصميم الخاص بك وشاركنا تفاصيل مشروعك."
+    >
+
+    <meta name="theme-color" content="#0A0A0A">
+
+    <title>طلب تصميم | Abdallah</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer
+    ></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savy Market Gallery</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- مكتبة الأيقونات Font Awesome الإصدار الأخير -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS لتنسيق مرن وسريع -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+
+        /* =========================================================
+           ROOT
+        ========================================================= */
+
+        :root {
+            --bg: #0A0A0A;
+            --bg-secondary: #111111;
+            --card: #151515;
+
+            --text: #FFFFFF;
+            --text-secondary: #A1A1A1;
+            --text-muted: #707070;
+
+            --primary: #FF7A00;
+            --primary-hover: #FF8C1A;
+
+            --primary-soft: rgba(255, 122, 0, 0.10);
+            --primary-border: rgba(255, 122, 0, 0.25);
+
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
+
+            --radius: 18px;
+            --transition: 0.25s ease;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Cairo", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% 5%,
+                    rgba(255, 122, 0, 0.08),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(255, 122, 0, 0.04),
+                    transparent 25%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            line-height: 1.7;
+
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background-glow {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+            overflow: hidden;
+
+            z-index: -1;
+        }
+         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0B0B0B; font-family: 'Comfortaa', sans-serif; color: white; overflow-x: hidden; }
+
+        /*================ HEADER ================*/
+        header { padding: 70px 8% 40px; text-align: center; }
+        header h1 { font-size: 3rem; margin-bottom: 15px; }
+        header p { color: #b8b8b8; font-size: 1rem; max-width: 700px; margin: auto; line-height: 1.8; }
+
+        /*================ GRID ================*/
+        .gallery { width: min(1400px, 90%); margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; padding-bottom: 80px; }
+
+        /*================ CARD ================*/
+        .card { position: relative; overflow: hidden; border-radius: 28px; background: #161616; border: 1px solid rgba(255, 255, 255, .08); transition: .45s; cursor: pointer; aspect-ratio: 1/1; }
+        .card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(0, 173, 204, .25); }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 1s cubic-bezier(.2, .8, .2, 1); }
+        .card:hover img { transform: scale(1.07) rotate(.8deg); }
+
+        /*================ OVERLAY ================*/
+        .overlay { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px; background: linear-gradient(transparent, rgba(0, 0, 0, .35), rgba(0, 0, 0, .92)); transition: .4s; }
+        .category { font-size: .75rem; letter-spacing: 2px; color: #FDD600; margin-bottom: 8px; text-transform: uppercase; }
+        .title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+        .description { font-size: .9rem; color: #d6d6d6; line-height: 1.7; }
+
+        /*================ ICON ================*/
+        .icon { position: absolute; top: 22px; left: 22px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .15); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; font-size: 20px; opacity: 0; transform: translateY(-20px); transition: .4s; }
+        .card:hover .icon { opacity: 1; transform: translateY(0); }
+
+        /*================ LIGHTBOX ================*/
+        .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, .94); display: none; justify-content: center; align-items: center; z-index: 999; padding: 40px; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); animation: zoom .35s; }
+        @keyframes zoom { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close { position: absolute; top: 30px; right: 40px; font-size: 45px; cursor: pointer; color: white; }
+
+        /*================ BACK BUTTON STYLE ================*/
+        .back-btn { position: absolute; top: 35px; left: 45px; display: flex; align-items: center; gap: 12px; padding: 8px 18px 8px 10px; border-radius: 999px; text-decoration: none; color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .08); transition: .35s cubic-bezier(.2, .8, .2, 1); z-index: 999; }
+        .back-btn:hover { transform: translateY(-3px); background: rgba(249, 115, 22, .18); border-color: rgba(249, 115, 22, .5); box-shadow: 0 18px 35px rgba(249, 115, 22, .25); }
+        .back-btn .btn-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .08); transition: .35s; }
+        .back-btn:hover .btn-icon { background: #f97316; transform: translateX(-4px); }
+        .back-btn i { font-size: 13px; color: white; }
+         .back-btn { 
+            position: fixed; 
+            top: 25px; 
+            left: 25px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            padding: 8px 18px 8px 10px; 
+            border-radius: 999px; 
+            text-decoration: none; 
+            color: #fff; 
+            font-family: 'Cairo', sans-serif; 
+            font-size: 14px; 
+            font-weight: 700; 
+            background: rgba(255, 255, 255, .06); 
+            border: 1px solid rgba(255, 255, 255, .12); 
+            backdrop-filter: blur(18px); 
+            transition: .35s; 
+            z-index: 2000; 
+        }
+        .back-btn:hover { background: rgba(249, 115, 22, .18); border-color: rgba(249, 115, 22, .5); }
+        .btn-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, .08); }
+        
+        header { padding: 60px 8% 40px; text-align: center; }
+        header h1 { font-size: 3rem; margin-bottom: 15px; }
+
+        .gallery { width: min(1400px, 90%); margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; padding-bottom: 80px; }
+        .card { position: relative; overflow: hidden; border-radius: 28px; background: #161616; aspect-ratio: 1/1; cursor: pointer; transition: .45s; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
+        .card:hover { transform: translateY(-10px); }
+        
+        .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, .94); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 40px; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 20px; }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: 2rem; padding-top: 40px; }
+            .back-btn { top: 15px; left: 15px; padding: 6px 12px 6px 8px; font-size: 12px; }
+            .btn-icon { width: 28px; height: 28px; }
+        }
+
+        .glow {
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 122, 0, 0.045);
+
+            filter: blur(80px);
+        }
+
+        .glow-1 {
+            top: -150px;
+            right: -100px;
+        }
+
+        .glow-2 {
+            bottom: -180px;
+            left: -120px;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+
+            width: 100%;
+
+            background: rgba(10, 10, 10, 0.82);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar-container {
+            width: min(1180px, calc(100% - 40px));
+
+            height: 76px;
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: var(--primary);
+
+            color: #000;
+
+            font-weight: 800;
+        }
+
+        .brand-text span {
+            color: var(--primary);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--text);
+
+            border-color: var(--border-hover);
+
+            transform: translateX(3px);
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+            width: min(1180px, calc(100% - 40px));
+
+            margin: auto;
+
+            padding: 75px 0 100px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            max-width: 760px;
+
+            margin: 0 auto 55px;
+
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 14px;
+
+            margin-bottom: 20px;
+
+            border: 1px solid var(--primary-border);
+
+            border-radius: 999px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary);
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero-badge i {
+            font-size: 9px;
+        }
+
+        .hero h1 {
+            margin-bottom: 16px;
+
+            font-size: clamp(34px, 5vw, 58px);
+
+            line-height: 1.2;
+
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: var(--text-secondary);
+
+            font-size: 16px;
+
+            line-height: 2;
+        }
+
+
+        /* =========================================================
+           LAYOUT
+        ========================================================= */
+
+        .form-wrapper {
+            display: grid;
+
+            grid-template-columns: 0.7fr 1.5fr;
+
+            gap: 24px;
+
+            align-items: start;
+        }
+
+
+        /* =========================================================
+           INFO CARD
+        ========================================================= */
+
+        .info-card {
+            position: sticky;
+            top: 100px;
+
+            padding: 30px;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.035),
+                    rgba(255,255,255,0.015)
+                );
+        }
+
+        .info-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 22px;
+
+            border-radius: 15px;
+
+            background: var(--primary-soft);
+
+            border: 1px solid var(--primary-border);
+
+            color: var(--primary);
+
+            font-size: 21px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 10px;
+
+            font-size: 22px;
+        }
+
+        .info-card > p {
+            margin-bottom: 28px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            line-height: 1.9;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 13px;
+        }
+
+        .step-number {
+            flex: 0 0 auto;
+
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: var(--primary-soft);
+
+            border: 1px solid var(--primary-border);
+
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .step-content h3 {
+            margin-bottom: 2px;
+
+            font-size: 14px;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           FORM CARD
+        ========================================================= */
+
+        .form-card {
+            padding: 34px;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            background: rgba(21,21,21,0.84);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.22);
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            margin-bottom: 6px;
+
+            font-size: 24px;
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        .form-section {
+            margin-top: 36px;
+            padding-top: 30px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .form-section:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+
+            border-top: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .section-number {
+            width: 28px;
+            height: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: var(--primary-soft);
+
+            border: 1px solid var(--primary-border);
+
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .section-title h3 {
+            font-size: 17px;
+        }
+
+        .section-description {
+            margin: -8px 0 18px;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           FORM GRID
+        ========================================================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #D8D8D8;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .required {
+            color: var(--primary);
+        }
+
+        .optional {
+            color: var(--text-muted);
+
+            font-size: 10px;
+            font-weight: 400;
+        }
+
+
+        /* =========================================================
+           INPUTS
+        ========================================================= */
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+
+            border: 1px solid var(--border);
+
+            outline: none;
+
+            border-radius: 12px;
+
+            background: #101010;
+
+            color: var(--text);
+
+            transition: var(--transition);
+        }
+
+        input,
+        select {
+            height: 52px;
+
+            padding: 0 16px;
+
+            font-size: 13px;
+        }
+
+        textarea {
+            min-height: 125px;
+
+            padding: 15px 16px;
+
+            resize: vertical;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #555;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary);
+
+            background: #131313;
+
+            box-shadow:
+                0 0 0 3px rgba(255,122,0,0.08);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           CONTACT METHOD
+        ========================================================= */
+
+        .contact-methods {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 8px;
+        }
+
+        .contact-method {
+            position: relative;
+        }
+
+        .contact-method input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .contact-method label {
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: #101010;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .contact-method input:checked + label {
+            color: var(--primary);
+
+            border-color: var(--primary);
+
+            background: var(--primary-soft);
+        }
+
+
+        /* =========================================================
+           MULTI SELECT DESIGN TYPES
+        ========================================================= */
+
+        .design-types {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 9px;
+        }
+
+        .design-type {
+            position: relative;
+        }
+
+        .design-type input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .design-type label {
+            min-height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 8px;
+
+            text-align: center;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: #101010;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .design-type label:hover {
+            border-color: var(--border-hover);
+        }
+
+        .design-type input:checked + label {
+            color: var(--primary);
+
+            border-color: var(--primary);
+
+            background: var(--primary-soft);
+
+            box-shadow:
+                inset 0 0 0 1px rgba(255,122,0,0.12);
+        }
+
+
+        /* =========================================================
+           CHECKBOX GRID
+        ========================================================= */
+
+        .checkbox-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 9px;
+        }
+
+        .checkbox-item {
+            position: relative;
+        }
+
+        .checkbox-item input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .checkbox-item label {
+            min-height: 48px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 10px 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: #101010;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+        }
+
+        .checkbox-item label::before {
+            content: "";
+
+            flex: 0 0 auto;
+
+            width: 16px;
+            height: 16px;
+
+            border: 1px solid #555;
+
+            border-radius: 5px;
+
+            transition: var(--transition);
+        }
+
+        .checkbox-item input:checked + label {
+            color: var(--primary);
+
+            border-color: var(--primary);
+
+            background: var(--primary-soft);
+        }
+
+        .checkbox-item input:checked + label::before {
+            border-color: var(--primary);
+
+            background: var(--primary);
+
+            box-shadow:
+                inset 0 0 0 3px #151515;
+        }
+
+
+        /* =========================================================
+           BRAND ONLY SECTION
+        ========================================================= */
+
+        #brandQuestions {
+            display: none;
+        }
+
+        #brandQuestions.show {
+            display: block;
+        }
+
+
+        /* =========================================================
+           FILE UPLOAD
+        ========================================================= */
+
+        .file-upload {
+            position: relative;
+
+            border: 1px dashed rgba(255,255,255,0.15);
+
+            border-radius: 14px;
+
+            background: #101010;
+
+            transition: var(--transition);
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-border);
+
+            background: #121212;
+        }
+
+        .file-upload input {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            opacity: 0;
+
+            cursor: pointer;
+        }
+
+        .file-upload-content {
+            min-height: 150px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+
+            text-align: center;
+
+            pointer-events: none;
+        }
+
+        .file-upload-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 12px;
+
+            border-radius: 14px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary);
+
+            font-size: 19px;
+        }
+
+        .file-upload-content strong {
+            margin-bottom: 4px;
+
+            font-size: 13px;
+        }
+
+        .file-upload-content span {
+            color: var(--text-muted);
+
+            font-size: 11px;
+        }
+
+        .file-list {
+            margin-top: 12px;
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           CONFIRMATION
+        ========================================================= */
+
+        .confirmation {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 10px;
+
+            padding: 15px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.02);
+        }
+
+        .confirmation input {
+            width: 18px;
+            height: 18px;
+
+            flex: 0 0 auto;
+
+            margin-top: 3px;
+
+            accent-color: var(--primary);
+        }
+
+        .confirmation label {
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            line-height: 1.8;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           FORM FOOTER
+        ========================================================= */
+
+        .form-footer {
+            margin-top: 30px;
+
+            padding-top: 24px;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .privacy-note {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 8px;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+        .privacy-note i {
+            margin-top: 3px;
+
+            color: var(--primary);
+        }
+
+        .submit-button {
+            min-width: 190px;
+            height: 52px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--primary);
+
+            color: #080808;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            transition: var(--transition);
+
+            box-shadow:
+                0 10px 30px rgba(255,122,0,0.16);
+        }
+
+        .submit-button:hover {
+            background: var(--primary-hover);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 35px rgba(255,122,0,0.22);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.7;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        /* =========================================================
+           SUCCESS
+        ========================================================= */
+
+        .success-message {
+            display: none;
+
+            text-align: center;
+
+            padding: 60px 25px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 22px;
+
+            border-radius: 22px;
+
+            background: var(--primary-soft);
+
+            border: 1px solid var(--primary-border);
+
+            color: var(--primary);
+
+            font-size: 28px;
+        }
+
+        .success-message h2 {
+            margin-bottom: 10px;
+
+            font-size: 25px;
+        }
+
+        .success-message p {
+            max-width: 480px;
+
+            margin: auto;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            line-height: 1.9;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            padding: 25px 20px;
+
+            border-top: 1px solid var(--border);
+
+            text-align: center;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+        }
+
+        .footer span {
+            color: var(--primary);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .form-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                position: relative;
+                top: auto;
+            }
+
+            .steps {
+                display: grid;
+
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .checkbox-grid,
+            .design-types {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+        }
+
+
+        @media (max-width: 550px) {
+
+            .navbar-container {
+                width: calc(100% - 28px);
+
+                height: 68px;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+
+            .brand-mark {
+                width: 34px;
+                height: 34px;
+            }
+
+            .back-link {
+                padding: 8px 11px;
+            }
+
+            .back-link span {
+                display: none;
+            }
+
+            .page {
+                width: calc(100% - 28px);
+
+                padding: 55px 0 70px;
+            }
+
+            .hero {
+                margin-bottom: 35px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .form-card {
+                padding: 22px 17px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-grid,
+            .design-types {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 390px) {
+
+            .checkbox-grid,
+            .design-types {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================= -->
+
+    <div class="background-glow">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="index.html" class="brand">
+
+                <div class="brand-mark">
+                    A
+                </div>
+
+                <div class="brand-text">
+                    Abdallah<span>.</span>
+                </div>
+
+            </a>
+
+
+           <a href="index.html" class="back-btn">
+        <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+        العودة للرئيسية
+    </a>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
+
+    <main class="page">
+
+
+        <!-- =====================================================
+             HERO
+        ===================================================== -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+
+                <i class="fa-solid fa-circle"></i>
+
+                ابدأ مشروعك
+
+            </div>
+
+
+            <h1>
+                اطلب <span>تصميمك</span>
+            </h1>
+
+
+            <p>
+                شاركني فكرتك واحتياجات مشروعك، وسأراجع التفاصيل
+                وأتواصل معك لمناقشة أفضل طريقة لتنفيذها.
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ===================================================== -->
+
+        <section class="form-wrapper">
+
+
+            <!-- =================================================
+                 INFO
+            ================================================= -->
+
+            <aside class="info-card">
+
+                <div class="info-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+
+                <h2>
+                    كيف تبدأ؟
+                </h2>
+
+
+                <p>
+                    لا تحتاج إلى معرفة كل التفاصيل مسبقًا.
+                    أخبرني بما لديك من معلومات وسأساعدك على تحديد
+                    المتطلبات المناسبة للمشروع.
+                </p>
+
+
+                <div class="steps">
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>
+                                أرسل التفاصيل
+                            </h3>
+
+                            <p>
+                                شاركني فكرتك ومتطلبات المشروع.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>
+                                مراجعة الطلب
+                            </h3>
+
+                            <p>
+                                أراجع احتياجات المشروع وأتواصل معك.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>
+                                نبدأ العمل
+                            </h3>
+
+                            <p>
+                                نتفق على التفاصيل ونحدد الخطوات القادمة.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+
+            <!-- =================================================
+                 FORM
+            ================================================= -->
+
+            <div class="form-card">
+
+                <div id="formContent">
+
+
+                    <div class="form-header">
+
+                        <h2>
+                            تفاصيل المشروع
+                        </h2>
+
+                        <p>
+                            الحقول التي تحمل
+                            <span class="required">*</span>
+                            مطلوبة.
+                        </p>
+
+                    </div>
+
+
+                    <form id="designRequestForm">
+
+
+                        <!-- =================================================
+                             BASIC INFORMATION
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    01
+                                </div>
+
+                                <h3>
+                                    معلومات أساسية
+                                </h3>
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group">
+
+                                    <label for="name">
+                                        الاسم
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="اكتب اسمك"
+                                        autocomplete="name"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="brandName">
+                                        اسم البراند
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="brandName"
+                                        name="brand_name"
+                                        placeholder="اسم المشروع أو البراند"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        وسيلة التواصل
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <div class="contact-methods">
+
+
+                                        <div class="contact-method">
+
+                                            <input
+                                                type="radio"
+                                                id="contactWhatsapp"
+                                                name="contact_method"
+                                                value="whatsapp"
+                                                checked
+                                            >
+
+                                            <label for="contactWhatsapp">
+                                                <i class="fa-brands fa-whatsapp"></i>
+                                                WhatsApp
+                                            </label>
+
+                                        </div>
+
+
+                                        <div class="contact-method">
+
+                                            <input
+                                                type="radio"
+                                                id="contactPhone"
+                                                name="contact_method"
+                                                value="phone"
+                                            >
+
+                                            <label for="contactPhone">
+                                                <i class="fa-solid fa-phone"></i>
+                                                هاتف
+                                            </label>
+
+                                        </div>
+
+
+                                        <div class="contact-method">
+
+                                            <input
+                                                type="radio"
+                                                id="contactEmail"
+                                                name="contact_method"
+                                                value="email"
+                                            >
+
+                                            <label for="contactEmail">
+                                                <i class="fa-regular fa-envelope"></i>
+                                                Email
+                                            </label>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label for="contactValue">
+                                        رقم الهاتف أو البريد الإلكتروني
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="contactValue"
+                                        name="contact_value"
+                                        placeholder="مثال: 09XXXXXXXX أو example@email.com"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PROJECT TYPE
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    02
+                                </div>
+
+                                <h3>
+                                    ما الذي تحتاجه؟
+                                </h3>
+
+                            </div>
+
+                            <p class="section-description">
+                                يمكنك اختيار أكثر من خيار.
+                            </p>
+
+
+                            <div class="design-types">
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeBrand"
+                                        name="design_type"
+                                        value="هوية بصرية"
+                                        data-brand="true"
+                                    >
+
+                                    <label for="typeBrand">
+                                        هوية بصرية
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeSocial"
+                                        name="design_type"
+                                        value="تصميم سوشيال ميديا"
+                                    >
+
+                                    <label for="typeSocial">
+                                        سوشيال ميديا
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeAdvertising"
+                                        name="design_type"
+                                        value="تصميم إعلاني"
+                                    >
+
+                                    <label for="typeAdvertising">
+                                        تصميم إعلاني
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typePrint"
+                                        name="design_type"
+                                        value="تصميم مطبوع"
+                                    >
+
+                                    <label for="typePrint">
+                                        تصميم مطبوع
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeVideo"
+                                        name="design_type"
+                                        value="مونتاج فيديو"
+                                    >
+
+                                    <label for="typeVideo">
+                                        مونتاج فيديو
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeMotion"
+                                        name="design_type"
+                                        value="Motion Graphics"
+                                    >
+
+                                    <label for="typeMotion">
+                                        Motion Graphics
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typePresentation"
+                                        name="design_type"
+                                        value="Presentation"
+                                    >
+
+                                    <label for="typePresentation">
+                                        Presentation
+                                    </label>
+
+                                </div>
+
+
+                                <div class="design-type">
+
+                                    <input
+                                        type="checkbox"
+                                        id="typeCustom"
+                                        name="design_type"
+                                        value="تصميم مخصص"
+                                    >
+
+                                    <label for="typeCustom">
+                                        تصميم مخصص
+                                    </label>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PROJECT DETAILS
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    03
+                                </div>
+
+                                <h3>
+                                    عن المشروع
+                                </h3>
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group full">
+
+                                    <label for="projectDetails">
+                                        أخبرني عن مشروعك
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <textarea
+                                        id="projectDetails"
+                                        name="project_details"
+                                        placeholder="ما الذي تريد تصميمه؟ ما الهدف منه؟ وما النتيجة التي تتوقع الوصول إليها؟"
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="platform">
+                                        الاستخدام أو المنصة
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <select
+                                        id="platform"
+                                        name="platform"
+                                    >
+
+                                        <option value="">
+                                            اختر الاستخدام
+                                        </option>
+
+                                        <option value="Instagram">
+                                            Instagram
+                                        </option>
+
+                                        <option value="Facebook">
+                                            Facebook
+                                        </option>
+
+                                        <option value="TikTok">
+                                            TikTok
+                                        </option>
+
+                                        <option value="YouTube">
+                                            YouTube
+                                        </option>
+
+                                        <option value="Website">
+                                            Website
+                                        </option>
+
+                                        <option value="Print">
+                                            طباعة
+                                        </option>
+
+                                        <option value="Business">
+                                            استخدام تجاري
+                                        </option>
+
+                                        <option value="Other">
+                                            استخدام آخر
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="deadline">
+                                        الموعد المطلوب
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="deadline"
+                                        name="deadline"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="budget">
+                                        الميزانية التقريبية
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <select
+                                        id="budget"
+                                        name="budget"
+                                    >
+
+                                        <option value="">
+                                            أفضل عدم تحديدها
+                                        </option>
+
+                                        <option value="أقل من 50$">
+                                            أقل من 50$
+                                        </option>
+
+                                        <option value="50$ - 100$">
+                                            50$ - 100$
+                                        </option>
+
+                                        <option value="100$ - 250$">
+                                            100$ - 250$
+                                        </option>
+
+                                        <option value="250$ - 500$">
+                                            250$ - 500$
+                                        </option>
+
+                                        <option value="أكثر من 500$">
+                                            أكثر من 500$
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="decisionMaker">
+                                        صاحب القرار النهائي
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="decisionMaker"
+                                        name="decision_maker"
+                                        placeholder="مثال: أنا / الشريك / الإدارة"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label for="additionalNotes">
+                                        متطلبات أو قيود مهمة
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <textarea
+                                        id="additionalNotes"
+                                        name="additional_notes"
+                                        placeholder="أي متطلبات، قيود، مواعيد، أو معلومات يجب معرفتها قبل البدء..."
+                                    ></textarea>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             BRAND QUESTIONS
+                        ================================================= -->
+
+                        <div
+                            class="form-section"
+                            id="brandQuestions"
+                        >
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    04
+                                </div>
+
+                                <h3>
+                                    معلومات الهوية
+                                </h3>
+
+                            </div>
+
+
+                            <p class="section-description">
+                                تظهر هذه الأسئلة عند اختيار الهوية البصرية فقط.
+                                يمكنك ترك ما لا تعرفه فارغًا.
+                            </p>
+
+
+
+                            <!-- STRATEGY -->
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group full">
+
+                                    <label for="brandMessage">
+                                        ما الرسالة الأساسية التي تريد أن يوصلها البراند؟
+                                    </label>
+
+                                    <textarea
+                                        id="brandMessage"
+                                        name="brand_message"
+                                        placeholder="ما الانطباع أو الفكرة التي تريد أن تبقى في ذهن الجمهور؟"
+                                    ></textarea>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="brandVision">
+                                        ما رؤيتك المستقبلية للبراند؟
+                                    </label>
+
+                                    <textarea
+                                        id="brandVision"
+                                        name="brand_vision"
+                                        placeholder="أين تتوقع أن يكون البراند خلال 3–5 سنوات؟"
+                                    ></textarea>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="brandValues">
+                                        ما القيم الأساسية للبراند؟
+                                    </label>
+
+                                    <textarea
+                                        id="brandValues"
+                                        name="brand_values"
+                                        placeholder="مثال: الثقة، الابتكار، الجودة..."
+                                    ></textarea>
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label for="brandMemory">
+                                        إذا تذكّر العميل شيئًا واحدًا فقط عن البراند، ماذا تريد أن يكون؟
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="brandMemory"
+                                        name="brand_memory"
+                                        placeholder="كلمة، شعور، فكرة أو قيمة"
+                                    >
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- DELIVERABLES -->
+
+                            <div class="form-section">
+
+                                <div class="section-title">
+
+                                    <div class="section-number">
+                                        05
+                                    </div>
+
+                                    <h3>
+                                        مخرجات الهوية
+                                    </h3>
+
+                                </div>
+
+                                <p class="section-description">
+                                    اختر ما تتوقع استلامه ضمن مشروع الهوية.
+                                </p>
+
+
+                                <div class="checkbox-grid">
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outLogo"
+                                            name="deliverables"
+                                            value="الشعار الرئيسي"
+                                        >
+                                        <label for="outLogo">
+                                            الشعار الرئيسي
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outLogoVersions"
+                                            name="deliverables"
+                                            value="نسخ مختلفة للشعار"
+                                        >
+                                        <label for="outLogoVersions">
+                                            نسخ مختلفة للشعار
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outColorLogo"
+                                            name="deliverables"
+                                            value="الشعار بالألوان"
+                                        >
+                                        <label for="outColorLogo">
+                                            الشعار بالألوان
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outBW"
+                                            name="deliverables"
+                                            value="الشعار بالأبيض والأسود"
+                                        >
+                                        <label for="outBW">
+                                            الأبيض والأسود
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outPalette"
+                                            name="deliverables"
+                                            value="Color Palette"
+                                        >
+                                        <label for="outPalette">
+                                            Color Palette
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outTypography"
+                                            name="deliverables"
+                                            value="Typography"
+                                        >
+                                        <label for="outTypography">
+                                            Typography
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outGuidelines"
+                                            name="deliverables"
+                                            value="Brand Guidelines"
+                                        >
+                                        <label for="outGuidelines">
+                                            Brand Guidelines
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outPatterns"
+                                            name="deliverables"
+                                            value="Patterns"
+                                        >
+                                        <label for="outPatterns">
+                                            Patterns
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outIcons"
+                                            name="deliverables"
+                                            value="أيقونات"
+                                        >
+                                        <label for="outIcons">
+                                            أيقونات
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outVisual"
+                                            name="deliverables"
+                                            value="عناصر بصرية"
+                                        >
+                                        <label for="outVisual">
+                                            عناصر بصرية
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outSocial"
+                                            name="deliverables"
+                                            value="قوالب Social Media"
+                                        >
+                                        <label for="outSocial">
+                                            قوالب Social Media
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outBusinessCard"
+                                            name="deliverables"
+                                            value="بطاقة أعمال"
+                                        >
+                                        <label for="outBusinessCard">
+                                            بطاقة أعمال
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outStationery"
+                                            name="deliverables"
+                                            value="أوراق رسمية"
+                                        >
+                                        <label for="outStationery">
+                                            أوراق رسمية
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outPackaging"
+                                            name="deliverables"
+                                            value="تصميم التغليف"
+                                        >
+                                        <label for="outPackaging">
+                                            تصميم التغليف
+                                        </label>
+                                    </div>
+
+
+                                    <div class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            id="outOther"
+                                            name="deliverables"
+                                            value="أخرى"
+                                        >
+                                        <label for="outOther">
+                                            مخرجات أخرى
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+
+                                <div
+                                    class="form-group"
+                                    style="margin-top:18px;"
+                                >
+
+                                    <label for="otherDeliverables">
+                                        مخرجات إضافية
+                                        <span class="optional">اختياري</span>
+                                    </label>
+
+                                    <textarea
+                                        id="otherDeliverables"
+                                        name="other_deliverables"
+                                        placeholder="هل هناك أي مخرجات أخرى تحتاجها؟"
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             REFERENCES
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    06
+                                </div>
+
+                                <h3>
+                                    الملفات والمراجع
+                                </h3>
+
+                            </div>
+
+                            <p class="section-description">
+                                يمكنك إرفاق ما يتوفر لديك من ملفات أو مراجع.
+                            </p>
+
+
+                            <div class="file-upload">
+
+                                <input
+                                    type="file"
+                                    id="referenceFiles"
+                                    name="reference_files"
+                                    multiple
+                                    accept="image/*,.pdf,.ai,.psd,.eps,.svg,.zip"
+                                >
+
+
+                                <div class="file-upload-content">
+
+                                    <div class="file-upload-icon">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+
+                                    <strong>
+                                        أرفق الملفات والمراجع
+                                    </strong>
+
+                                    <span>
+                                        شعار سابق، صور، Brand Guidelines،
+                                        مراجع، ألوان، خطوط أو مواد تسويقية
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="file-list"
+                                id="fileList"
+                            ></div>
+
+
+                            <div
+                                class="form-group"
+                                style="margin-top:18px;"
+                            >
+
+                                <label for="referenceLinks">
+                                    روابط ومراجع
+                                    <span class="optional">اختياري</span>
+                                </label>
+
+                                <textarea
+                                    id="referenceLinks"
+                                    name="reference_links"
+                                    placeholder="ضع هنا روابط المواقع أو الحسابات أو التصاميم المرجعية..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             OPEN QUESTION
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    07
+                                </div>
+
+                                <h3>
+                                    شيء آخر تريد أن تخبرني به؟
+                                </h3>
+
+                            </div>
+
+                            <p class="section-description">
+                                مساحة مفتوحة لأي معلومة تعتقد أنها مهمة لفهم المشروع ولم نسألك عنها.
+                            </p>
+
+
+                            <div class="form-group">
+
+                                <textarea
+                                    id="anythingElse"
+                                    name="anything_else"
+                                    style="min-height:160px;"
+                                    placeholder="اكتب أي شيء تعتقد أنه سيساعدني على فهم البراند أو المشروع بشكل أفضل..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             CONFIRMATION
+                        ================================================= -->
+
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <div class="section-number">
+                                    08
+                                </div>
+
+                                <h3>
+                                    تأكيد المعلومات
+                                </h3>
+
+                            </div>
+
+
+                            <div class="confirmation">
+
+                                <input
+                                    type="checkbox"
+                                    id="confirmation"
+                                    name="confirmation"
+                                    required
+                                >
+
+                                <label for="confirmation">
+                                    أؤكد أن المعلومات التي قدمتها تعبّر عن
+                                    احتياجات وتوجهات المشروع، وأتفهم أنها ستستخدم
+                                    كمرجع في مرحلة البحث والتطوير وبناء الهوية
+                                    أو تنفيذ التصميم.
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             FOOTER
+                        ================================================= -->
+
+                        <div class="form-footer">
+
+
+                            <div class="privacy-note">
+
+                                <i class="fa-solid fa-lock"></i>
+
+                                <span>
+                                    سيتم استخدام معلوماتك فقط لمراجعة
+                                    طلب التصميم والتواصل معك بخصوص المشروع.
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="submit-button"
+                                id="submitButton"
+                            >
+
+                                <span>
+                                    إرسال طلب التصميم
+                                </span>
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- =====================================================
+                     SUCCESS
+                ===================================================== -->
+
+                <div
+                    class="success-message"
+                    id="successMessage"
+                >
+
+                    <div class="success-icon">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </div>
+
+
+                    <h2>
+                        تم إرسال طلبك بنجاح
+                    </h2>
+
+
+                    <p>
+                        شكرًا لك. وصلت تفاصيل مشروعك بنجاح،
+                        وسيتم التواصل معك لمناقشة التفاصيل والخطوات القادمة.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026
+            <span>Abdallah</span>.
+            جميع الحقوق محفوظة.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+    /* =========================================================
+       SUPABASE CONFIGURATION
+    ========================================================= */
+
+    const SUPABASE_URL = "https://eeorggogytqiwlgldoru.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_2Ob8xmm_596BsL3msxG94w_AVlTaerJ";
+    const STORAGE_BUCKET = "design-request-files";
+
+    let supabaseClient = null;
+
+    /* =========================================================
+       SUPABASE INITIALIZATION
+    ========================================================= */
+
+    function initSupabase() {
+        if (!window.supabase) {
+            throw new Error("تعذر تحميل مكتبة Supabase.");
+        }
+
+        supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY,
+            {
+                auth: {
+                    persistSession: false,
+                    autoRefreshToken: false,
+                    detectSessionInUrl: false
+                }
+            }
+        );
+    }
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const form = document.getElementById("designRequestForm");
+    const formContent = document.getElementById("formContent");
+    const successMessage = document.getElementById("successMessage");
+    const submitButton = document.getElementById("submitButton");
+    const brandCheckbox = document.getElementById("typeBrand");
+    const brandQuestions = document.getElementById("brandQuestions");
+    const fileInput = document.getElementById("referenceFiles");
+    const fileList = document.getElementById("fileList");
+
+    const MAX_FILE_SIZE = 25 * 1024 * 1024;
+    const MAX_FILES = 10;
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function valueOf(id) {
+        const element = document.getElementById(id);
+        return element ? element.value.trim() : "";
+    }
+
+    function checkedValues(name) {
+        return Array.from(
+            document.querySelectorAll(`input[name="${name}"]:checked`)
+        )
+            .map(input => input.value.trim())
+            .filter(Boolean);
+    }
+
+    function selectedContactMethod() {
+        return document.querySelector(
+            'input[name="contact_method"]:checked'
+        )?.value || "";
+    }
+
+    function showError(message) {
+        alert(message);
+    }
+
+    function setSubmitting(isSubmitting) {
+        submitButton.disabled = isSubmitting;
+
+        if (isSubmitting) {
+            submitButton.innerHTML = `
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <span>جاري إرسال الطلب...</span>
+            `;
+        } else {
+            submitButton.innerHTML = `
+                <span>إرسال طلب التصميم</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            `;
+        }
+    }
+
+    function safeFileName(name) {
+        return name
+            .normalize("NFKC")
+            .replace(/[^\p{L}\p{N}._-]+/gu, "_")
+            .replace(/_+/g, "_")
+            .replace(/^[_\.]+|[_\.]+$/g, "")
+            .slice(0, 150) || "file";
+    }
+
+    function parseReferenceLinks(value) {
+        return value
+            .split(/\r?\n|,/)
+            .map(item => item.trim())
+            .filter(Boolean);
+    }
+
+    function isValidUrl(value) {
+        try {
+            const url = new URL(value);
+            return url.protocol === "http:" || url.protocol === "https:";
+        } catch {
+            return false;
+        }
+    }
+
+    function validateFiles(files) {
+        if (files.length > MAX_FILES) {
+            throw new Error(`يمكن إرفاق ${MAX_FILES} ملفات كحد أقصى.`);
+        }
+
+        for (const file of files) {
+            if (file.size > MAX_FILE_SIZE) {
+                throw new Error(
+                    `الملف "${file.name}" أكبر من 25MB. يرجى اختيار ملف أصغر.`
+                );
+            }
+        }
+    }
+
+    function updateSuccessState() {
+        formContent.style.display = "none";
+        successMessage.classList.add("show");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =========================================================
+       BRAND QUESTIONS
+    ========================================================= */
+
+    function updateBrandQuestions() {
+        if (!brandCheckbox || !brandQuestions) return;
+
+        if (brandCheckbox.checked) {
+            brandQuestions.classList.add("show");
+        } else {
+            brandQuestions.classList.remove("show");
+        }
+    }
+
+    if (brandCheckbox) {
+        brandCheckbox.addEventListener("change", updateBrandQuestions);
+        updateBrandQuestions();
+    }
+
+    /* =========================================================
+       FILE LIST
+    ========================================================= */
+
+    if (fileInput) {
+        fileInput.addEventListener("change", function () {
+            fileList.innerHTML = "";
+
+            const files = Array.from(fileInput.files || []);
+
+            if (!files.length) return;
+
+            try {
+                validateFiles(files);
+            } catch (error) {
+                fileInput.value = "";
+                showError(error.message);
+                return;
+            }
+
+            const list = document.createElement("div");
+            list.style.display = "flex";
+            list.style.flexDirection = "column";
+            list.style.gap = "7px";
+
+            files.forEach(file => {
+                const item = document.createElement("div");
+                item.style.display = "flex";
+                item.style.alignItems = "center";
+                item.style.gap = "7px";
+
+                item.innerHTML = `
+                    <i class="fa-regular fa-file"></i>
+                    <span></span>
+                    <small style="opacity:.55"></small>
+                `;
+
+                item.querySelector("span").textContent = file.name;
+                item.querySelector("small").textContent =
+                    `(${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+
+                list.appendChild(item);
+            });
+
+            fileList.appendChild(list);
+        });
+    }
+
+    /* =========================================================
+       COLLECT FORM DATA
+    ========================================================= */
+
+    function collectFormData() {
+        const designTypes = checkedValues("design_type");
+        const deliverables = checkedValues("deliverables");
+        const contactMethod = selectedContactMethod();
+        const referenceLinks = parseReferenceLinks(valueOf("referenceLinks"));
+
+        if (!designTypes.length) {
+            throw new Error("يرجى اختيار نوع تصميم واحد على الأقل.");
+        }
+
+        if (!valueOf("name")) {
+            throw new Error("يرجى إدخال الاسم.");
+        }
+
+        if (!valueOf("contactValue")) {
+            throw new Error("يرجى إدخال وسيلة التواصل.");
+        }
+
+        if (!valueOf("projectDetails")) {
+            throw new Error("يرجى كتابة تفاصيل المشروع.");
+        }
+
+        const confirmation = document.getElementById("confirmation");
+
+        if (!confirmation || !confirmation.checked) {
+            throw new Error("يرجى تأكيد صحة المعلومات قبل الإرسال.");
+        }
+
+        for (const link of referenceLinks) {
+            if (!isValidUrl(link)) {
+                throw new Error(`الرابط غير صالح: ${link}`);
+            }
+        }
+
+        return {
+            client: {
+                name: valueOf("name"),
+                brand_name: valueOf("brandName") || null,
+                contact_method: contactMethod || null,
+                contact_value: valueOf("contactValue")
+            },
+
+            request: {
+                project_details: valueOf("projectDetails"),
+                platform: valueOf("platform") || null,
+                deadline: valueOf("deadline") || null,
+                budget: valueOf("budget") || null,
+                decision_maker: valueOf("decisionMaker") || null,
+                additional_notes: valueOf("additionalNotes") || null,
+                anything_else: valueOf("anythingElse") || null,
+                confirmation: true
+            },
+
+            designTypes,
+            deliverables,
+            otherDeliverables: valueOf("otherDeliverables"),
+            referenceLinks,
+
+            brand: brandCheckbox && brandCheckbox.checked
+                ? {
+                    brand_message: valueOf("brandMessage") || null,
+                    brand_vision: valueOf("brandVision") || null,
+                    brand_values: valueOf("brandValues") || null,
+                    brand_memory: valueOf("brandMemory") || null
+                }
+                : null
+        };
+    }
+
+    /* =========================================================
+       INSERT CLIENT
+
+       IMPORTANT:
+       Do NOT call .select() here.
+       The public form uses the anon role and should not have
+       SELECT access to the clients table.
+    ========================================================= */
+
+    async function createClient(clientData) {
+        const clientId = crypto.randomUUID();
+
+        const payload = {
+            id: clientId,
+            ...clientData
+        };
+
+        const { error } = await supabaseClient
+            .from("clients")
+            .insert(payload);
+
+        if (error) {
+            console.error("Supabase clients INSERT error:", error);
+            throw new Error(
+                `تعذر حفظ بيانات العميل: ${error.message}`
+            );
+        }
+
+        return clientId;
+    }
+
+    /* =========================================================
+       INSERT REQUEST
+
+       Generate the UUID locally so no SELECT permission is needed.
+    ========================================================= */
+
+    async function createRequest(clientId, requestData) {
+        const requestId = crypto.randomUUID();
+
+        const payload = {
+            id: requestId,
+            ...requestData,
+            client_id: clientId
+        };
+
+        const { error } = await supabaseClient
+            .from("design_requests")
+            .insert(payload);
+
+        if (error) {
+            console.error(
+                "Supabase design_requests INSERT error:",
+                error
+            );
+
+            throw new Error(
+                `تعذر حفظ طلب التصميم: ${error.message}`
+            );
+        }
+
+        return requestId;
+    }
+
+    /* =========================================================
+       DESIGN TYPES
+    ========================================================= */
+
+    async function saveDesignTypes(requestId, designTypes) {
+        const rows = designTypes.map(type => ({
+            request_id: requestId,
+            design_type: type
+        }));
+
+        if (!rows.length) return;
+
+        const { error } = await supabaseClient
+            .from("design_request_types")
+            .insert(rows);
+
+        if (error) {
+            console.error(
+                "Supabase design_request_types error:",
+                error
+            );
+
+            throw new Error(
+                `تعذر حفظ أنواع التصميم: ${error.message}`
+            );
+        }
+    }
+
+    /* =========================================================
+       BRAND DATA
+    ========================================================= */
+
+    async function saveBrandData(requestId, brand) {
+        if (!brand) return;
+
+        const { error } = await supabaseClient
+            .from("brand_questions")
+            .insert({
+                request_id: requestId,
+                ...brand
+            });
+
+        if (error) {
+            console.error(
+                "Supabase brand_questions error:",
+                error
+            );
+
+            throw new Error(
+                `تعذر حفظ معلومات الهوية: ${error.message}`
+            );
+        }
+    }
+
+    /* =========================================================
+       DELIVERABLES
+    ========================================================= */
+
+    async function saveDeliverables(
+        requestId,
+        deliverables,
+        otherDeliverables
+    ) {
+        const rows = deliverables.map(deliverable => ({
+            request_id: requestId,
+            deliverable
+        }));
+
+        if (otherDeliverables) {
+            rows.push({
+                request_id: requestId,
+                deliverable: `مخرجات إضافية: ${otherDeliverables}`
+            });
+        }
+
+        if (!rows.length) return;
+
+        const { error } = await supabaseClient
+            .from("brand_deliverables")
+            .insert(rows);
+
+        if (error) {
+            console.error(
+                "Supabase brand_deliverables error:",
+                error
+            );
+
+            throw new Error(
+                `تعذر حفظ المخرجات: ${error.message}`
+            );
+        }
+    }
+
+    /* =========================================================
+       REFERENCE LINKS
+    ========================================================= */
+
+    async function saveReferenceLinks(requestId, links) {
+        if (!links.length) return;
+
+        const rows = links.map(url => ({
+            request_id: requestId,
+            url
+        }));
+
+        const { error } = await supabaseClient
+            .from("request_references")
+            .insert(rows);
+
+        if (error) {
+            console.error(
+                "Supabase request_references error:",
+                error
+            );
+
+            throw new Error(
+                `تعذر حفظ الروابط المرجعية: ${error.message}`
+            );
+        }
+    }
+
+    /* =========================================================
+       FILE UPLOADS
+    ========================================================= */
+
+    async function uploadFiles(requestId, files) {
+        if (!files.length) return;
+
+        validateFiles(files);
+
+        for (const file of files) {
+            const safeName = safeFileName(file.name);
+            const uniqueName =
+                `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+            const filePath = `${requestId}/${uniqueName}`;
+
+            const { error: uploadError } = await supabaseClient
+                .storage
+                .from(STORAGE_BUCKET)
+                .upload(filePath, file, {
+                    cacheControl: "3600",
+                    upsert: false,
+                    contentType:
+                        file.type || "application/octet-stream"
+                });
+
+            if (uploadError) {
+                console.error(
+                    "Supabase Storage upload error:",
+                    uploadError
+                );
+
+                throw new Error(
+                    `تعذر رفع الملف "${file.name}": ${uploadError.message}`
+                );
+            }
+
+            const { error: fileRowError } = await supabaseClient
+                .from("request_files")
+                .insert({
+                    request_id: requestId,
+                    file_name: file.name,
+                    file_path: filePath,
+                    file_size: file.size,
+                    mime_type: file.type || null
+                });
+
+            if (fileRowError) {
+                console.error(
+                    "Supabase request_files error:",
+                    fileRowError
+                );
+
+                throw new Error(
+                    `تم رفع الملف "${file.name}" لكن تعذر تسجيله في قاعدة البيانات: ${fileRowError.message}`
+                );
+            }
+        }
+    }
+
+    /* =========================================================
+       FORM SUBMISSION
+    ========================================================= */
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (submitButton.disabled) return;
+
+        const files = Array.from(fileInput.files || []);
+
+        try {
+            initSupabase();
+            validateFiles(files);
+
+            const formData = collectFormData();
+
+            setSubmitting(true);
+
+            /* 1. Client */
+            const clientId = await createClient(formData.client);
+
+            /* 2. Request */
+            const requestId = await createRequest(
+                clientId,
+                formData.request
+            );
+
+            /* 3. Design types */
+            await saveDesignTypes(
+                requestId,
+                formData.designTypes
+            );
+
+            /* 4. Brand */
+            await saveBrandData(
+                requestId,
+                formData.brand
+            );
+
+            /* 5. Deliverables */
+            await saveDeliverables(
+                requestId,
+                formData.deliverables,
+                formData.otherDeliverables
+            );
+
+            /* 6. Reference links */
+            await saveReferenceLinks(
+                requestId,
+                formData.referenceLinks
+            );
+
+            /* 7. Files */
+            await uploadFiles(
+                requestId,
+                files
+            );
+
+            form.reset();
+
+            fileInput.value = "";
+            fileList.innerHTML = "";
+
+            updateBrandQuestions();
+
+            setSubmitting(false);
+            updateSuccessState();
+
+        } catch (error) {
+            console.error(
+                "Design request submission error:",
+                error
+            );
+
+            setSubmitting(false);
+
+            showError(
+                error?.message ||
+                "حدث خطأ غير متوقع أثناء إرسال الطلب. يرجى المحاولة مرة أخرى."
+            );
+        }
+    });
+</script>
+
+</body>
+
+</html>
+
